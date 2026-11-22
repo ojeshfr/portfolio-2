@@ -153,6 +153,10 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
         {item ? link(item, item.cta) : null}
       </div>
       <div className="spatial-progress" aria-hidden="true"><span /></div>
+      <nav className="spatial-rail" aria-label="Gallery chapters">
+        {items.map((entry, i) => <button key={entry.id} type="button" data-label={`${pad(i + 1)} ${entry.title}`}
+          aria-label={`Go to ${entry.title}`} aria-current={active === i} onClick={() => focus(i)}><span /></button>)}
+      </nav>
       <div className={"spatial-focus" + (item ? " is-hidden" : "")} aria-live="polite" aria-atomic="true">
         <p>Selected digital work<span>{driven ? "Scroll to fly through, or open the index." : "Tap a slide or open the index."}</span></p>
       </div>

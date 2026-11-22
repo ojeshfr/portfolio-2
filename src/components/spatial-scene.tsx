@@ -3,7 +3,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CanvasTexture, Mesh, MeshBasicMaterial, SRGBColorSpace, Texture, TextureLoader } from "three";
+import { CanvasTexture, Color, Mesh, MeshBasicMaterial, SRGBColorSpace, Texture, TextureLoader } from "three";
 import type { RefObject } from "react";
 import type { SceneItem } from "@/lib/scene";
 import { clamp, dwell } from "@/lib/scene-math";
@@ -24,6 +24,8 @@ type SceneProps = {
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const lerp3 = (a: Vec3, b: Vec3, t: number): Vec3 => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+const EDGE = new Color("#424247");
+const EDGE_FOCUS = new Color("#c8795b");
 const HALF_FOV = Math.tan(20 * Math.PI / 180);
 // Vertical offsets break the corridor's rhythm so it reads as a path, not a row.
 const LIFT = [.6, -.5, .9, -.2, .5, -.8, .3, -.4, .7, -.3];
@@ -73,6 +75,7 @@ function Installation({ items, selected, reduced, driven, scroll, onInvalidate, 
   const mobile = size.width < 760 || size.width / size.height < .95;
   const meshes = useRef<(Mesh | null)[]>([]);
   const materials = useRef<(MeshBasicMaterial | null)[]>([]);
+  const borders = useRef<(MeshBasicMaterial | null)[]>([]);
   const hovers = useRef<Hover[]>([]);
   const [textures, setTextures] = useState<(Texture | null)[]>([]);
   const pointer = useRef({ px: 0, py: 0 });
@@ -86,7 +89,7 @@ function Installation({ items, selected, reduced, driven, scroll, onInvalidate, 
       const width = Math.min(mobile ? 4.7 : 8.2, (mobile ? 3.2 : 5.3) * item.image.aspect);
       const height = width / item.image.aspect;
       // How far back the camera must sit to fit this slide on both axes.
-      const distance = Math.max(width / (2 * HALF_FOV * viewAspect * .76), height / (2 * HALF_FOV * .7)) + .5;
+      const distance = Math.max(width / (2 * HALF_FOV * viewAspect * .76), height / (2 * HALF_FOV * .64)) + .5;
       return { item, width, height, distance };
     });
     // Slides must sit farther apart than the camera's framing distance, or the
@@ -247,6 +250,8 @@ function Installation({ items, selected, reduced, driven, scroll, onInvalidate, 
       }
       const light = lerp(1, .32 + .68 * weight, open);
       materials.current[i]?.color.setRGB(light, light, light);
+      // The focused slide's edge warms toward copper; the others stay graphite.
+      borders.current[i]?.color.copy(EDGE).lerp(EDGE_FOCUS, weight * open);
     });
   });
 
@@ -273,9 +278,9 @@ function Installation({ items, selected, reduced, driven, scroll, onInvalidate, 
         <planeGeometry args={[layout.width, layout.height]} />
         <meshBasicMaterial ref={(material) => { materials.current[i] = material; }}
           map={textures[i] ?? null} color={textures[i] ? "white" : "#101012"} toneMapped={false} />
-        <mesh position={[0, 0, -.012]} scale={[1.004, 1.006, 1]}>
+        <mesh position={[0, 0, -.012]} scale={[1.006, 1.01, 1]}>
           <planeGeometry args={[layout.width, layout.height]} />
-          <meshBasicMaterial color="#424247" toneMapped={false} />
+          <meshBasicMaterial ref={(material) => { borders.current[i] = material; }} color="#424247" toneMapped={false} />
         </mesh>
         {/* Contact shadow: offset down and away, never part of hit testing. */}
         <mesh position={[layout.width * .035, -layout.height * .06, -.08]} scale={[1.22, 1.3, 1]} raycast={() => null}>
