@@ -102,11 +102,10 @@ The Teen Fiesta gallery continues to include its verified supplied event artwork
 
 ### Windows tool screenshots (`repos/`)
 
-Unedited application captures taken from the public `ojeshfr` repositories on 22 November 2026, used as the Windows slides in the homepage 3D gallery. The only changes are conversion to quality-90 WebP, flattening transparent window corners onto `#0b0c0f`, and one crop.
+Unedited application captures taken from the public `ojeshfr` repositories on 22 November 2026, used as the Windows slides in the homepage 3D gallery. The only changes are conversion to quality-90 WebP and flattening transparent window corners onto `#0b0c0f`.
 
 | File | Source in the repository | Size |
 | --- | --- | --- |
-| `clickforge-dashboard.webp` | `ClickForge/docs/screenshot.png`, cropped to remove a white strip along the bottom edge (`{ left: 0, top: 0, width: 1280, height: 880 }`) | 1280 × 880 |
 | `larpiano-player.webp` | `larpiano/website/assets/player.png` | 1536 × 1024 |
 | `glyphlens-capture.webp` | `glyphlens/website/assets/dark-main-Capture.png` | 1479 × 984 |
 | `sora-updates.webp` | `sora/web/sora-downloads/public/sora-updates.png` | 1288 × 782 |

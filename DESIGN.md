@@ -10,7 +10,7 @@
 
 ## 3D slide gallery / 22 November 2026
 
-- After the OVIO opening, a pinned Three.js section turns the four web case studies and four Windows tools (GlyphLens, ClickForge, larpiano, Sora) into one fly-through gallery. The opening is the established diagonal cascade; scrolling unfolds it into a corridor of slides in depth, and the camera flies from slide to slide with a brief hold on each.
+- After the OVIO opening, a pinned Three.js section turns the four web case studies and three Windows tools (GlyphLens, larpiano, Sora) into one fly-through gallery. The opening is the established diagonal cascade; scrolling unfolds it into a corridor of slides in depth, and the camera flies from slide to slide with a brief hold on each.
 - Windows slides use unedited interface captures from the public repositories (`public/work/repos/`, provenance in `public/work/README.md`). Web slides keep their case-study covers. A caption names the active slide and links to its case study or GitHub repository; clicking the active slide opens it.
 - Depth cues: contact shadows, a dust field spread along the corridor, brightness falloff away from the focused slide, a slight camera bank between sides, per-slide hover lift and pointer tilt, and a slow idle drift.
 - Wide screens with motion allowed fly by scrolling (about 0.6 screens per slide). Touch, narrow and reduced-motion layouts do not pin: tapping a slide or an index row glides the camera there. Corridor spacing is derived from the viewport's framing distance so a slide never sits between the camera and the one being shown.

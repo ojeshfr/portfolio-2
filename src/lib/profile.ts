@@ -83,11 +83,6 @@ export const desktopProjects: DesktopProject[] = [
     technology: "C# / WPF / .NET",
     url: "https://github.com/ojeshfr/ClickForge",
     linkLabel: "View repository",
-    screenshot: {
-      src: "/work/repos/clickforge-dashboard.webp",
-      alt: "ClickForge dashboard with click-speed controls, start, pause and emergency stop buttons, and a selected-target panel.",
-      aspect: 1280 / 880,
-    },
   },
   {
     name: "larpiano",
@@ -110,15 +105,6 @@ export const desktopProjects: DesktopProject[] = [
       "A standalone WPF prototype for larpiano's floating overlay, built to explore its visuals and interaction in isolation.",
     technology: "C# / WPF",
     url: "https://github.com/ojeshfr/larpiano-overlay-prototype",
-    linkLabel: "View repository",
-  },
-  {
-    name: "Screen Circle Click Tester",
-    kind: "Windows utility",
-    description:
-      "Draw a detection circle on the game screen, pick a target colour, and arm clicking with hotkeys. It runs only while another window is focused and accounts for display scaling.",
-    technology: "Python / Windows executable",
-    url: "https://github.com/ojeshfr/screen-circle-click-tester",
     linkLabel: "View repository",
   },
   {

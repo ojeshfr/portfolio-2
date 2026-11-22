@@ -31,6 +31,6 @@ Rechecked the account: still 13 public repositories, none newer than 21 November
 
 ## Repository screenshots and 3D gallery
 
-Added four unedited interface captures from the public repositories (ClickForge, larpiano, GlyphLens, Sora); sources, crop and conversion are listed in `public/work/README.md`. Forklight, Screen Circle Click Tester and the larpiano overlay prototype have no screenshots in their repositories, so they appear in text only. The images appear in the homepage 3D gallery and on About.
+Added three unedited interface captures from the public repositories (larpiano, GlyphLens, Sora); sources, crop and conversion are listed in `public/work/README.md`. Forklight and the larpiano overlay prototype have no screenshots in their repositories, so they appear in text only. ClickForge's repository images are all game-specific (Roblox, Minecraft), so it appears in text only, and the game-screen Screen Circle Click Tester was removed from the site's lists; both remain on GitHub. The images appear in the homepage 3D gallery and on About.
 
-Checked in the preview at 1280×800 (scroll-driven flight through all eight slides, Index fly-to, caption) and 375×812 (tap-to-select, no horizontal overflow). A mobile bug found during review is fixed: corridor spacing now follows the viewport's framing distance.
+Checked in the preview at 1280×800 (scroll-driven flight through all slides, Index fly-to, caption) and 375×812 (tap-to-select, no horizontal overflow). A mobile bug found during review is fixed: corridor spacing now follows the viewport's framing distance.
