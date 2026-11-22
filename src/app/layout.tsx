@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ScrollReveals } from "@/components/scroll-reveals";
 import { ProjectEntryProvider } from "@/components/project-entry";
+import { structuredData } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -39,6 +40,8 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
+  alternates: { canonical: "/" },
+  authors: [{ name: site.name, url: site.githubUrl }],
   openGraph: {
     type: "website",
     siteName: site.name,
@@ -53,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#08090b",
 };
 
 export default function RootLayout({
@@ -62,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${editorial.variable}`}>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData() }} />
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>

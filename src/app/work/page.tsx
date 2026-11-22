@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { ProjectCard } from "@/components/project-card";
 import { projects } from "@/lib/projects";
 import { Atmosphere } from "@/components/atmosphere";
+import { DesktopTools } from "@/components/desktop-tools";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Work",
-  description: "Selected product, campaign, and interactive development work by Ojesh.",
-};
+  description: "Selected web projects by Ojesh: campaign, product and event websites.",
+  path: "/work",
+});
 
 export default function WorkPage() {
   return (
@@ -24,6 +27,7 @@ export default function WorkPage() {
           <ProjectCard index={index} key={project.slug} project={project} />
         ))}
       </section>
+      <DesktopTools />
     </div>
   );
 }

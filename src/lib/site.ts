@@ -23,5 +23,5 @@ export const site = {
   hasPublicOrigin: Boolean(validPublicOrigin),
   contactEmail:
     process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || "workwithovio@gmail.com",
-  githubUrl: "https://github.com/ojeshfrrr",
+  githubUrl: "https://github.com/ojeshfr",
 };

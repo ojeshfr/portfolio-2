@@ -1,5 +1,22 @@
 # OVIO Design System
 
+## Professional polish / 22 November 2026
+
+- **Legibility:** no text is set below 12px (`.75rem`). Sixty smaller declarations, down to 8.8px, were raised to that floor. Checked on every route at 320px with no horizontal overflow.
+- **Sharing:** a typographic share card (`src/app/opengraph-image.png`, also used for Twitter) carries the name, positioning and the LANE capture. Each page sets its own canonical path and matching Open Graph and Twitter titles through `pageMetadata` in `src/lib/seo.ts`; case studies use their cover. Canonicals and image URLs resolve against `NEXT_PUBLIC_SITE_URL`, so nothing is hardcoded.
+- **Structured data:** one JSON-LD graph (Person and WebSite) in the root layout, limited to facts already public on the site: name, contact email, GitHub profile, languages and country.
+- **Footer:** the footer now carries Work, About, Contact and GitHub, so every page reaches the main routes without the header.
+
+
+## 3D slide gallery / 22 November 2026
+
+- After the OVIO opening, a pinned Three.js section turns the four web case studies and three Windows tools (GlyphLens, larpiano, Sora) into one fly-through gallery. The opening is the established diagonal cascade; scrolling unfolds it into a corridor of slides in depth, and the camera flies from slide to slide with a brief hold on each.
+- Windows slides use unedited interface captures from the public repositories (`public/work/repos/`, provenance in `public/work/README.md`). Web slides keep their case-study covers. A caption names the active slide and links to its case study or GitHub repository; clicking the active slide opens it.
+- Depth cues: contact shadows, a dust field spread along the corridor, brightness falloff away from the focused slide, a slight camera bank between sides, per-slide hover lift and pointer tilt, and a slow idle drift.
+- Wide screens with motion allowed fly by scrolling (about 0.6 screens per slide). Touch, narrow and reduced-motion layouts do not pin: tapping a slide or an index row glides the camera there. Corridor spacing is derived from the viewport's framing distance so a slide never sits between the camera and the one being shown.
+- Idle drift and hover run only on desktop with motion allowed; the frame loop pauses when the canvas is off-screen or the tab is hidden. The CSS fallback layout shows until textures load or if WebGL fails.
+- The section background uses the shared `#08090b` foundation. The About page's desktop section shows the same screenshots with attribution captions.
+
 ## GitHub selection / 27 October 2026
 
 - A compact text index follows the homepage introduction. Three direct repository links connect native Windows work, this site's source and a featured event website. One muted language tag accompanies each row; forks retain attribution.

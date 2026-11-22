@@ -99,3 +99,15 @@ The WebP assets are quality-95 encodes without resizing; raw browser PNGs, viewp
 - `teen-fiesta-film.mp4`, `teen-fiesta-film-poster.jpg`: unmodified supplied film and poster from the existing local export (`media/campaign-film-wide.mp4` and `media/film-poster.jpg`). Sampled frames were inspected and actual native-control playback was verified. Video is opt-in (`preload="none"`, no autoplay). No public deployment or ticketing capability is implied.
 
 The Teen Fiesta gallery continues to include its verified supplied event artwork and announcement. The rejected project/campaign identity is not reintroduced. The separate source export contains other, excluded material; only the verified Teen Fiesta film section and branded supplied media are used here.
+
+### Windows tool screenshots (`repos/`)
+
+Unedited application captures taken from the public `ojeshfr` repositories on 22 November 2026, used as the Windows slides in the homepage 3D gallery. The only changes are conversion to quality-90 WebP and flattening transparent window corners onto `#0b0c0f`.
+
+| File | Source in the repository | Size |
+| --- | --- | --- |
+| `larpiano-player.webp` | `larpiano/website/assets/player.png` | 1536 × 1024 |
+| `glyphlens-capture.webp` | `glyphlens/website/assets/dark-main-Capture.png` | 1479 × 984 |
+| `sora-updates.webp` | `sora/web/sora-downloads/public/sora-updates.png` | 1288 × 782 |
+
+These show each app's own interface and make no claims beyond it. For example, GlyphLens's capture page shows translation as not implemented.

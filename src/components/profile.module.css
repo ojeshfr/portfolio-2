@@ -33,6 +33,9 @@
 .desktop { padding: clamp(4rem, 8vw, 8rem) var(--gutter); }
 .desktopProject { display: grid; grid-template-columns: .9fr 1.2fr auto; gap: 2rem 4rem; align-items: start; padding-block: 2.5rem; border-top: 1px solid var(--rule); }
 .desktopProject h3 { font-size: clamp(1.8rem, 2.7vw, 2.8rem); margin-bottom: 0; }
+.desktopShot { grid-column: 1 / -1; margin: .75rem 0 0; max-width: 62rem; }
+.desktopShot img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: #08090b; }
+.desktopShot figcaption { margin-top: .7rem; color: var(--quiet); font-size: .75rem; letter-spacing: .02em; }
 .desktopProject .projectDescription { margin-bottom: .85rem; }
 .technology { margin: 0; color: var(--quiet); font-size: .75rem; }
 .closing { display: flex; justify-content: space-between; align-items: end; gap: 3rem; margin-inline: var(--gutter); padding-block: 3rem 6rem; border-top: 1px solid var(--rule); }

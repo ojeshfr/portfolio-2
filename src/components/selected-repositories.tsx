@@ -14,9 +14,9 @@ export function SelectedRepositories() {
         </a>
       </div>
       <ul className={styles.list}>
-        {selectedRepositories.slice(0, 3).map((repository) => (
+        {selectedRepositories.map((repository) => (
           <li key={repository.name}>
-            <a className={styles.row} href={repository.url} target="_blank" rel="noreferrer" aria-label={`View ${repository.name} on GitHub${"provenance" in repository ? " (public fork)" : ""}`}>
+            <a className={styles.row} href={repository.url} target="_blank" rel="noreferrer" aria-label={`View ${repository.name} on GitHub`}>
               <div className={styles.identity}>
                 <h3>{repository.name}</h3>
                 {"provenance" in repository ? <p className={styles.provenance}>{repository.provenance}</p> : null}

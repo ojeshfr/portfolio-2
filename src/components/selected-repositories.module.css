@@ -14,8 +14,8 @@
 .row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) 6.5rem 1rem; align-items: center; gap: 1rem 2rem; padding-block: 1.2rem; }
 .identity h3 { margin: 0; font: 500 clamp(1.1rem, 1.5vw, 1.45rem)/1.25 var(--sans); letter-spacing: -.025em; overflow-wrap: anywhere; }
 .description { max-width: 60ch; margin: 0; font-size: .85rem; line-height: 1.7; color: var(--paper-dim); }
-.provenance { max-width: 36ch; margin: .5rem 0 0; color: var(--quiet); font-size: .72rem; line-height: 1.6; overflow-wrap: anywhere; }
-.language { justify-self: start; padding: .3rem .6rem; border: 1px solid var(--rule); border-radius: .2rem; color: var(--paper-dim); font-size: .7rem; line-height: 1.4; }
+.provenance { max-width: 36ch; margin: .5rem 0 0; color: var(--quiet); font-size: .75rem; line-height: 1.6; overflow-wrap: anywhere; }
+.language { justify-self: start; padding: .3rem .6rem; border: 1px solid var(--rule); border-radius: .2rem; color: var(--paper-dim); font-size: .75rem; line-height: 1.4; }
 .arrow { color: var(--paper-dim); font-size: 1rem; }
 .row:hover h3, .row:hover .arrow { color: var(--copper); }
 .row:focus-visible { outline-offset: 4px; }
