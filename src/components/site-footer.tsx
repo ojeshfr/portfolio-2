@@ -18,11 +18,15 @@ export function SiteFooter() {
         </a>
       </div>
       <div className="site-footer__bottom">
-        <span>© 2026 Ojesh</span>
-        <a href={site.githubUrl} rel="noreferrer" target="_blank">
-          GitHub <span aria-hidden="true">↗</span>
-        </a>
-        <Link href="/work">Selected work</Link>
+        <span>© 2026 Ojesh · C# &amp; TypeScript · India</span>
+        <nav className="site-footer__nav" aria-label="Footer">
+          <Link href="/work">Work</Link>
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
+          <a href={site.githubUrl} rel="noreferrer" target="_blank">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
       </div>
     </footer>
   );

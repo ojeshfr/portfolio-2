@@ -20,10 +20,10 @@
 }
 .mediaLink:focus-visible { outline-offset: -4px; }
 .caption { position: absolute; z-index: 4; bottom: 8.4rem; inset-inline: var(--gutter); display: flex; justify-content: space-between; align-items: end; gap: 1rem; }
-.projectType { display: block; font-size: .68rem; color: #b7b3aa; margin-bottom: .25rem; }
+.projectType { display: block; font-size: .75rem; color: #b7b3aa; margin-bottom: .25rem; }
 .projectName { display: flex; align-items: baseline; gap: 1rem; font: 500 clamp(1.7rem, 2.5vw, 2.8rem)/1 var(--sans); letter-spacing: -.045em; }
 .projectName span { font: 400 1rem/1 var(--body); }
-.cue { position: absolute; left: 50%; transform: translateX(-50%); margin: 0; color: #b7b3aa; font-size: .7rem; white-space: nowrap; }
+.cue { position: absolute; left: 50%; transform: translateX(-50%); margin: 0; color: #b7b3aa; font-size: .75rem; white-space: nowrap; }
 .cue span { margin-left: 1rem; }
 .indexButton { background: none; border: 0; padding: .6rem 0 .6rem 1rem; font-size: .78rem; white-space: nowrap; flex-shrink: 0; }
 .indexButton span { display: inline-block; margin-left: 1.4rem; font-size: 1.2rem; }
@@ -33,7 +33,7 @@
 .rail button[aria-pressed="true"] { color: #e9e5d8; }
 .rail button[aria-pressed="true"]::before { transform: scaleX(1); }
 .rail button:hover { color: white; }
-.number { font: 400 .64rem/1 var(--body); color: #a4a29c; }
+.number { font: 400 .75rem/1 var(--body); color: #a4a29c; }
 .selectionMark { margin-left: auto; opacity: 0; font-size: .85rem; }
 .rail button[aria-pressed="true"] .selectionMark { opacity: 1; }
 .progress { position: absolute; z-index: 5; bottom: 0; inset-inline: 0; height: 2px; }
@@ -47,7 +47,7 @@
 .indexRow { display: flex; align-items: stretch; border-top: 1px solid #e9e5d82a; }
 .indexRow button { display: grid; grid-template-columns: 2rem 1fr auto; align-items: baseline; gap: 1rem; flex: 1; min-width: 0; padding: 1.3rem 0; border: 0; background: none; text-align: left; }
 .indexRow button > span { font: 500 clamp(2rem,5vw,4.8rem)/1 var(--sans); letter-spacing: -.055em; }
-.indexRow small { font-size: .65rem; color: #b7b3aa; }
+.indexRow small { font-size: .75rem; color: #b7b3aa; }
 .indexRow a { padding: 1.5rem .7rem 1.5rem 2rem; display: flex; align-items: center; font-size: 1.5rem; }
 .indexRow button:hover, .indexRow a:hover { color: #c8795b; }
 .archiveLink { display: inline-block; margin-top: 2rem; font-size: .8rem; }
@@ -66,14 +66,14 @@
 }
 @media (max-width: 600px) {
   .stage { min-height: 750px; height: 100svh; }
-  .introduction { top: 6rem; font-size: .69rem; }
+  .introduction { top: 6rem; font-size: .75rem; }
   .identity { top: 17%; bottom: auto; height: 20%; }
   .upper, .lower { font-size: 34vw; }
   .window { top: 48%; height: 29%; }
   .caption { bottom: 11.5rem; align-items: end; }
-  .projectType { max-width: 12rem; font-size: .64rem; }
+  .projectType { max-width: 12rem; font-size: .75rem; }
   .projectName { font-size: 1.7rem; }
-  .indexButton { font-size: .69rem; }
+  .indexButton { font-size: .75rem; }
   .indexButton span { margin-left: .55rem; }
   .rail { grid-template-columns: repeat(2,1fr); bottom: 2rem; column-gap: 1.4rem; border: 0; }
   .rail button { min-height: 4rem; gap: .7rem; border-top: 1px solid #e9e5d82a; font-size: .85rem; padding-right: 0; }

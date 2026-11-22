@@ -3,14 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { desktopProjects, profile } from "@/lib/profile";
 import { projects } from "@/lib/projects";
+import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import styles from "@/components/profile.module.css";
 import { Atmosphere } from "@/components/atmosphere";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
-  description: "Ojesh, based in India. Building with TypeScript and C#, from web experiences to native Windows tools. Explore the projects and public source.",
-};
+  description: "Ojesh, based in India. Building with C# and TypeScript, from desktop tools and OCR overlays to web experiences. Explore the projects and public source.",
+  path: "/about",
+});
 
 const webProjects = projects.flatMap((project) => project.repository ? [{ ...project, repository: project.repository }] : []);
 

@@ -1,5 +1,13 @@
 # OVIO Design System
 
+## Professional polish / 22 November 2026
+
+- **Legibility:** no text is set below 12px (`.75rem`). Sixty smaller declarations, down to 8.8px, were raised to that floor. Checked on every route at 320px with no horizontal overflow.
+- **Sharing:** a typographic share card (`src/app/opengraph-image.png`, also used for Twitter) carries the name, positioning and the LANE capture. Each page sets its own canonical path and matching Open Graph and Twitter titles through `pageMetadata` in `src/lib/seo.ts`; case studies use their cover. Canonicals and image URLs resolve against `NEXT_PUBLIC_SITE_URL`, so nothing is hardcoded.
+- **Structured data:** one JSON-LD graph (Person and WebSite) in the root layout, limited to facts already public on the site: name, contact email, GitHub profile, languages and country.
+- **Footer:** the footer now carries Work, About, Contact and GitHub, so every page reaches the main routes without the header.
+
+
 ## 3D slide gallery / 22 November 2026
 
 - After the OVIO opening, a pinned Three.js section turns the four web case studies and four Windows tools (GlyphLens, ClickForge, larpiano, Sora) into one fly-through gallery. The opening is the established diagonal cascade; scrolling unfolds it into a corridor of slides in depth, and the camera flies from slide to slide with a brief hold on each.

@@ -9,6 +9,8 @@ import { CaseFeature } from "@/components/case-feature";
 import { ProjectLink } from "@/components/project-entry";
 import profileStyles from "@/components/profile.module.css";
 import { Atmosphere } from "@/components/atmosphere";
+import { pageMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 import styles from "@/components/case-study.module.css";
 
 type CaseStudyProps = {
@@ -27,10 +29,18 @@ export async function generateMetadata({
   if (!project) return { title: "Project not found" };
 
   return {
-    title: project.title,
-    description: project.summary,
+    ...pageMetadata({ title: project.title, description: project.summary, path: "/work/" + project.slug }),
     openGraph: {
-      title: project.title + " — Ojesh",
+      type: "article",
+      siteName: site.name,
+      title: project.title + " — " + site.name,
+      description: project.summary,
+      url: "/work/" + project.slug,
+      images: [project.cover.src],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title + " — " + site.name,
       description: project.summary,
       images: [project.cover.src],
     },
