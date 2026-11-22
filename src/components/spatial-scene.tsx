@@ -3,12 +3,56 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Mesh, MeshBasicMaterial, SRGBColorSpace, Texture, TextureLoader } from "three";
+import { CanvasTexture, Mesh, MeshBasicMaterial, Points, SRGBColorSpace, Texture, TextureLoader } from "three";
 import type { RefObject } from "react";
 import type { Project } from "@/lib/projects";
 
 type Surface = { project: number; src: string; aspect: number; width: number; position: [number, number, number]; rotation: [number, number, number] };
 export type SceneScroll = { progress: number; invalidate: (() => void) | null };
+type Hover = { v: number; tx: number; ty: number };
+
+/** One soft radial falloff, reused as every slide's contact shadow so stacked
+ * slides read as layers in depth instead of sitting flat on one another. */
+function createShadowTexture() {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 128;
+  const context = canvas.getContext("2d");
+  if (context) {
+    const gradient = context.createRadialGradient(64, 64, 6, 64, 64, 64);
+    gradient.addColorStop(0, "rgba(0,0,0,.9)");
+    gradient.addColorStop(.55, "rgba(0,0,0,.38)");
+    gradient.addColorStop(1, "rgba(0,0,0,0)");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 128, 128);
+  }
+  const texture = new CanvasTexture(canvas);
+  texture.colorSpace = SRGBColorSpace;
+  return texture;
+}
+
+/** A sparse field of paper-coloured dust. Camera travel through it supplies
+ * parallax, which is what makes the flight read as depth rather than zoom. */
+function Dust({ idle }: { idle: boolean }) {
+  const points = useRef<Points>(null);
+  const positions = useMemo(() => {
+    let seed = 7;
+    const next = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    const array = new Float32Array(150 * 3);
+    for (let i = 0; i < 150; i++) {
+      array[i * 3] = (next() - .5) * 34;
+      array[i * 3 + 1] = (next() - .5) * 20;
+      array[i * 3 + 2] = -14 + next() * 20;
+    }
+    return array;
+  }, []);
+  useFrame(() => {
+    if (points.current && idle) points.current.rotation.y = performance.now() / 1000 * .008;
+  });
+  return <points ref={points}>
+    <bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry>
+    <pointsMaterial color="#e9e5d8" size={.045} sizeAttenuation transparent opacity={.38} depthWrite={false} toneMapped={false} />
+  </points>;
+}
 
 function Installation({ projects, selected, reduced, scroll, onInvalidate, onSelect, onReady, onLoading }: {
   projects: Project[]; selected: number | null; reduced: boolean;
@@ -22,6 +66,11 @@ function Installation({ projects, selected, reduced, scroll, onInvalidate, onSel
   const materials = useRef<(MeshBasicMaterial | null)[]>([]);
   const [textures, setTextures] = useState<(Texture | null)[]>([]);
   const cameraState = useRef({ x: 0, y: 0, z: 16, px: 0, py: 0 });
+  const hovers = useRef<Hover[]>([]);
+  const shadow = useMemo(() => createShadowTexture(), []);
+  useEffect(() => () => shadow.dispose(), [shadow]);
+  const idle = !reduced && !mobile;
+  const hover = (index: number) => (hovers.current[index] ??= { v: 0, tx: 0, ty: 0 });
   const selection = useRef({ index: selected ?? 0 });
   const surfaces = useMemo<Surface[]>(() => {
     const desktopLayouts: Record<string, Pick<Surface, "width" | "position" | "rotation">> = {
@@ -128,7 +177,23 @@ function Installation({ projects, selected, reduced, scroll, onInvalidate, onSel
     };
   }, [gl, reduced, mobile, invalidate]);
 
+  useEffect(() => {
+    // Idle drift needs frames while nothing else is animating. Run at ~30fps,
+    // only while the canvas is on screen, never under reduced motion or on touch layouts.
+    if (!idle) return;
+    let frame = 0, last = 0, visible = true;
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
+    observer.observe(gl.domElement);
+    const tick = (time: number) => {
+      frame = requestAnimationFrame(tick);
+      if (visible && !document.hidden && time - last > 33) { last = time; invalidate(); }
+    };
+    frame = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(frame); observer.disconnect(); };
+  }, [idle, gl, invalidate]);
+
   useFrame(() => {
+    const seconds = performance.now() / 1000;
     const view = cameraState.current;
     const travel = mobile || reduced ? 0 : scroll.current.progress;
     const mix = (a: number, b: number) => a + (b - a) * travel;
@@ -146,30 +211,62 @@ function Installation({ projects, selected, reduced, scroll, onInvalidate, onSel
       const mesh = meshes.current[i];
       const weight = weights[i];
       if (mesh) {
-        mesh.position.set(mix(pose.x, surfaces[i].position[0] * 1.6 * (1 - weight)), mix(pose.y, surfaces[i].position[1] * 1.4 * (1 - weight)), mix(pose.z, -10 + 13 * weight));
-        mesh.scale.setScalar(mix(pose.scale, 1));
-        mesh.rotation.set(...surfaces[i].rotation.map((angle) => angle * (1 - travel * weight)) as [number, number, number]);
+        const lift = hover(i);
+        const rest = 1 - travel;
+        const drift = idle ? rest : 0;
+        mesh.position.set(
+          mix(pose.x, surfaces[i].position[0] * 1.6 * (1 - weight)),
+          mix(pose.y, surfaces[i].position[1] * 1.4 * (1 - weight)) + Math.sin(seconds * .55 + i * 1.7) * .13 * drift,
+          mix(pose.z, -10 + 13 * weight) + lift.v * .7 * rest,
+        );
+        mesh.scale.setScalar(mix(pose.scale, 1) + lift.v * .022 * rest);
+        const [rx, ry, rz] = surfaces[i].rotation.map((angle) => angle * (1 - travel * weight));
+        mesh.rotation.set(
+          rx + lift.ty * .11 * lift.v * rest,
+          ry + lift.tx * .15 * lift.v * rest,
+          rz + Math.sin(seconds * .4 + i * 2.3) * .011 * drift,
+        );
       }
       const light = mix(pose.light, .18 + .82 * weight);
       materials.current[i]?.color.setRGB(light, light, light);
     });
   });
 
-  return surfaces.map((surface, i) => (
-    <mesh key={surface.src} ref={(mesh) => { meshes.current[i] = mesh; }}
-      position={surface.position} rotation={surface.rotation}
-      onClick={(event) => { event.stopPropagation(); onSelect(surface.project); }}
-      onPointerOver={(event) => { event.stopPropagation(); gl.domElement.style.cursor = "pointer"; }}
-      onPointerOut={() => { gl.domElement.style.cursor = ""; }}>
-      <planeGeometry args={[surface.width, surface.width / surface.aspect]} />
-      <meshBasicMaterial ref={(material) => { materials.current[i] = material; }}
-        map={textures[i] ?? null} color={textures[i] ? "white" : "#101012"} toneMapped={false} />
-      <mesh position={[0, 0, -.012]} scale={[1.004, 1.006, 1]}>
+  return <>
+    <Dust idle={idle} />
+    {surfaces.map((surface, i) => (
+      <mesh key={surface.src} ref={(mesh) => { meshes.current[i] = mesh; }}
+        position={surface.position} rotation={surface.rotation}
+        onClick={(event) => { event.stopPropagation(); onSelect(surface.project); }}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          gl.domElement.style.cursor = "pointer";
+          if (!idle) return;
+          gsap.to(hover(i), { v: 1, duration: .45, ease: "power2.out", onUpdate: invalidate });
+        }}
+        onPointerMove={(event) => {
+          if (!idle || !event.uv) return;
+          gsap.to(hover(i), { tx: event.uv.x - .5, ty: .5 - event.uv.y, duration: .5, ease: "power2.out", overwrite: "auto", onUpdate: invalidate });
+        }}
+        onPointerOut={() => {
+          gl.domElement.style.cursor = "";
+          gsap.to(hover(i), { v: 0, tx: 0, ty: 0, duration: .6, ease: "power2.out", overwrite: "auto", onUpdate: invalidate });
+        }}>
         <planeGeometry args={[surface.width, surface.width / surface.aspect]} />
-        <meshBasicMaterial color="#424247" toneMapped={false} />
+        <meshBasicMaterial ref={(material) => { materials.current[i] = material; }}
+          map={textures[i] ?? null} color={textures[i] ? "white" : "#101012"} toneMapped={false} />
+        <mesh position={[0, 0, -.012]} scale={[1.004, 1.006, 1]}>
+          <planeGeometry args={[surface.width, surface.width / surface.aspect]} />
+          <meshBasicMaterial color="#424247" toneMapped={false} />
+        </mesh>
+        {/* Contact shadow: offset down and away, never part of hit testing. */}
+        <mesh position={[surface.width * .035, -surface.width / surface.aspect * .06, -.08]} scale={[1.22, 1.3, 1]} raycast={() => null}>
+          <planeGeometry args={[surface.width, surface.width / surface.aspect]} />
+          <meshBasicMaterial map={shadow} transparent opacity={.75} depthWrite={false} toneMapped={false} />
+        </mesh>
       </mesh>
-    </mesh>
-  ));
+    ))}
+  </>;
 }
 
 export default function SpatialScene(props: {

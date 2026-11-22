@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IdentityStage } from "@/components/identity-stage";
 import { HomeScroll } from "@/components/home-scroll";
+import { PortalHero } from "@/components/portal-hero";
 import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 import { desktopProjects, profile } from "@/lib/profile";
@@ -12,6 +13,7 @@ export default function HomePage() {
   return (
     <div className="page-home page-home--identity">
       <IdentityStage projects={projects} />
+      <PortalHero projects={projects} />
       <HomeScroll />
       <section className={`home-about ${styles.homeSection}`} id="about" aria-labelledby="home-about-title">
         <Atmosphere variant="profile" />
@@ -20,7 +22,7 @@ export default function HomePage() {
           <h2 className={styles.homeHeading} id="home-about-title">Curiosity,<br />put to work.</h2>
           <div className={`home-about__copy ${styles.homeCopy}`}>
             <p>I&apos;m Ojesh. {profile.introduction}</p>
-            <p>{profile.description} The work above explores the web side; <a href={desktopProjects[0].url} rel="noreferrer" target="_blank">ClickForge</a> is one of my Windows tools.</p>
+            <p>{profile.description} The work above explores the web side; <a href={desktopProjects[0].url} rel="noreferrer" target="_blank">GlyphLens</a>, an offline screen translator in progress, is one of my Windows tools.</p>
             <div className={styles.homeActions}><Link className={styles.textLink} href="/about">More about me <span aria-hidden="true">↗</span></Link><a className={styles.textLink} href={site.githubUrl} rel="noreferrer" target="_blank">Projects on GitHub <span aria-hidden="true">↗</span></a></div>
           </div>
         </div>

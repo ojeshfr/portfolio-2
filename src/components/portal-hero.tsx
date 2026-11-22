@@ -83,8 +83,8 @@ export function PortalHero({ projects }: { projects: Project[] }) {
   return (
     <section className="spatial-hero" ref={root} aria-label="Spatial project overview">
       <AmbientField className="ambient-field--cosmic" />
-      <h1 className="visually-hidden">Ojesh — selected creative development projects</h1>
-      <div className="spatial-note">Independent creative developer<br /><span>Agra, India · Available worldwide</span></div>
+      <h2 className="visually-hidden">Selected web projects in three dimensions</h2>
+      <div className="spatial-note">Inside the work<br /><span>Four web projects · Drag, hover, select</span></div>
       <div className="spatial-stage">
         <div className={"spatial-fallback" + (ready ? " is-hidden" : "")}>
           {projects.map((item, i) => <Link href={`/work/${item.slug}`} key={item.slug}

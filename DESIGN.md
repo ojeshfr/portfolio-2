@@ -1,5 +1,12 @@
 # OVIO Design System
 
+## 3D slide scene / 22 November 2026
+
+- The Three.js slide scene returns to the homepage as a second chapter after the OVIO opening. Four project slides sit in depth; scrolling pins the section and flies the camera through to the first project, which resolves into a caption and case-study link.
+- Added depth cues: a soft contact shadow under each slide, a sparse paper-coloured dust field for parallax, per-slide hover lift and pointer tilt, and a slow idle drift. Drift and hover run only on desktop with motion allowed, and the idle frame loop pauses when the canvas is off-screen or the tab is hidden. Reduced motion and touch layouts keep the static composition.
+- Textures fall back to each project's case-study cover when no dedicated `/work/spatial` file exists. The CSS fallback layout still appears until textures load or if WebGL fails.
+- The section background now uses the shared `#08090b` foundation.
+
 ## GitHub selection / 27 October 2026
 
 - A compact text index follows the homepage introduction. Three direct repository links connect native Windows work, this site's source and a featured event website. One muted language tag accompanies each row; forks retain attribution.

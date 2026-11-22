@@ -59,6 +59,11 @@ export const projects: Project[] = [
     approach:
       "The supplied posters set the visual direction. Campaign records supply the homepage, archive filters and individual routes. The sequence shows the homepage, HEAT detail, archive and responsive composition from the actual local implementation.",
     liveUrl: "https://thelane.vercel.app/",
+    repository: {
+      url: "https://github.com/ojeshfr/lane-studio",
+      description: "A campaign-led event curation site built with the Next.js App Router and TypeScript, with a campaign archive and individual event pages.",
+      note: "The repository README documents the project as LANE. Campaign records and artwork paths are kept in its data manifests.",
+    },
   },
   {
     slug: "arcus",
@@ -90,9 +95,9 @@ export const projects: Project[] = [
       "The next-session action leads the training dashboard. The source includes IndexedDB workout records, local draft backup and account sync. These fresh, signed-out captures show actual empty states and catalogue interfaces; they do not demonstrate remote synchronization or completed workouts.",
     liveUrl: "https://thearcus.vercel.app/",
     repository: {
-      url: "https://github.com/ojeshfrrr/arcus",
+      url: "https://github.com/ojeshfr/arcus",
       description: "A training log with an IndexedDB-backed workout logger, exercise search, and an offline shell.",
-      note: "Public fork of gauravxsuvo/arcus. The repository README documents the project as Forge Training.",
+      note: "Originally from gauravxsuvo/arcus. The repository README documents the project as Forge Training.",
     },
   },
   {
@@ -108,7 +113,6 @@ export const projects: Project[] = [
     role: "Creative development and front-end engineering",
     cover: {
       src: "/work/case-studies/teen-fiesta-film.webp",
-      textureSrc: "/work/spatial/teen-fiesta-website.webp",
       alt: "Teen Fiesta website film section with editorial typography and its embedded event film.",
       aspect: 3670 / 2074,
       caption: "Local export / the complete film section and embedded player",
@@ -140,9 +144,9 @@ export const projects: Project[] = [
     liveUrl: "https://theteenfiesta.vercel.app/",
     liveUnavailable: true,
     repository: {
-      url: "https://github.com/ojeshfrrr/teen-fiesta-red-room",
+      url: "https://github.com/ojeshfr/teen-fiesta-red-room",
       description: "An event website bringing local media and a Three.js starburst into a cinematic Next.js page.",
-      note: "Public fork of gauravxsuvo/teen-fiesta-red-room, documented as Teen Fiesta — Red Room.",
+      note: "Originally from gauravxsuvo/teen-fiesta-red-room, documented as Teen Fiesta — Red Room.",
     },
   },
   {
@@ -154,7 +158,6 @@ export const projects: Project[] = [
     role: "Collaborative work with OVIO and Suvo (Gaurav Raj Singh)",
     cover: {
       src: "/work/case-studies/rewatch-opening.webp",
-      textureSrc: "/work/spatial/rewatch.webp",
       alt: "Rewatch homepage introducing its film, series, anime, and music catalog.",
       aspect: 1.6,
       caption: "Public opening / search, editorial type and the catalogue preview",

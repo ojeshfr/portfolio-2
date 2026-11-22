@@ -32,8 +32,8 @@ export default function AboutPage() {
         </div>
         <dl className={styles.facts}>
           <div><dt>Based in</dt><dd>{profile.location}</dd></div>
-          <div><dt>Mostly working with</dt><dd>TypeScript &amp; C#</dd></div>
-          <div><dt>Making</dt><dd>Web experiences &amp; Windows tools</dd></div>
+          <div><dt>Mostly working with</dt><dd>C# &amp; TypeScript</dd></div>
+          <div><dt>Making</dt><dd>Desktop tools, OCR overlays &amp; web</dd></div>
         </dl>
       </header>
 
@@ -42,8 +42,8 @@ export default function AboutPage() {
         <h2 id="profile-note">From the browser to the desktop.</h2>
         <div>
           <p>{profile.description}</p>
-          <p>That range includes event websites, a training log, and <a href={desktopProjects[0].url} rel="noreferrer" target="_blank">ClickForge</a>, a native Windows input utility. The projects below bring those two sides together.</p>
-          <a className={styles.textLink} href="https://github.com/ojeshfrrr/portfolio-2" rel="noreferrer" target="_blank">This portfolio&apos;s source <span aria-hidden="true">↗</span></a>
+          <p>That range includes event websites, a training log, and Windows tools like <a href={desktopProjects[0].url} rel="noreferrer" target="_blank">GlyphLens</a>, an offline screen translator built on OCR. The projects below bring those two sides together.</p>
+          <a className={styles.textLink} href={`${site.githubUrl}?tab=repositories`} rel="noreferrer" target="_blank">All repositories <span aria-hidden="true">↗</span></a>
         </div>
       </section>
 
@@ -64,7 +64,7 @@ export default function AboutPage() {
               <p className={styles.projectDescription}>{project.repository.description}</p>
               <div className={styles.actions}>
                 <Link className={styles.textLink} href={`/work/${project.slug}`}>View case study <span aria-hidden="true">↗</span></Link>
-                <a className={styles.textLink} href={project.repository.url} rel="noreferrer" target="_blank">GitHub fork <span aria-hidden="true">↗</span></a>
+                <a className={styles.textLink} href={project.repository.url} rel="noreferrer" target="_blank">GitHub repository <span aria-hidden="true">↗</span></a>
               </div>
               <p className={styles.sourceNote}>{project.repository.note}</p>
             </div>
@@ -76,7 +76,7 @@ export default function AboutPage() {
         <Atmosphere variant="grid" />
         <div className={styles.sectionHead}>
           <h2 id="profile-desktop">On the desktop.</h2>
-          <p>Native Windows utilities and hardware projects, including forks and independent customizations.</p>
+          <p>Native Windows tools, from OCR and input utilities to a virtual piano and a hardware hub.</p>
         </div>
         {desktopProjects.map((project) => (
           <article className={styles.desktopProject} key={project.name}>

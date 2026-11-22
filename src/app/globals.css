@@ -107,7 +107,7 @@ main { min-height: 65vh; }
 
 /* Spatial installation: the canvas owns the composition; UI occupies its corners. */
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
-.spatial-hero { position: relative; isolation: isolate; height: 100svh; min-height: 38rem; overflow: clip; background: radial-gradient(ellipse 54% 62% at 38% 60%, rgba(200, 121, 91, .065) 0%, rgba(120, 74, 59, .025) 45%, transparent 80%), #03050b; }
+.spatial-hero { position: relative; isolation: isolate; height: 100svh; min-height: 38rem; overflow: clip; background: radial-gradient(ellipse 54% 62% at 38% 60%, rgba(200, 121, 91, .065) 0%, rgba(120, 74, 59, .025) 45%, transparent 80%), #08090b; }
 .spatial-arrival { visibility: hidden; opacity: 0; position: absolute; z-index: 4; left: var(--gutter); bottom: 7rem; }
 .spatial-arrival > span { color: var(--quiet); font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; }
 .spatial-arrival p { margin: .4rem 0; font: 500 clamp(1.5rem, 3vw, 3rem)/1.05 var(--sans); letter-spacing: -.04em; }

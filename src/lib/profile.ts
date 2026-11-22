@@ -1,62 +1,116 @@
-// Public GitHub profile, profile README and repository READMEs, checked 2026-10-27.
-// Source URLs and attribution limits: qa/profile-refresh-2026-10-27/README.md.
+// Public GitHub profile (github.com/ojeshfr), profile README and repository READMEs, checked 2026-11-22.
+// Source URLs and attribution limits: qa/profile-refresh-2026-11-22/README.md.
 export const profile = {
-  handle: "ojeshfrrr",
+  handle: "ojeshfr",
   location: "India",
-  introduction: "I turn things I get curious about into projects.",
-  description: "I mostly build with TypeScript and C#, from web experiences to native Windows tools.",
+  introduction: "I turn rabbit holes into repos.",
+  description: "I mostly build with C# and TypeScript, from desktop tools and OCR overlays to web experiences.",
 };
 
-// README purpose + source/manifests verified on GitHub, 2026-10-27.
+// README purpose + repository contents verified on GitHub, 2026-11-22.
 // Keep this selection small; the case studies remain the primary work showcase.
 export const selectedRepositories = [
+  {
+    name: "glyphlens",
+    description: "A privacy-first, offline Windows screen translator in development. It captures a display or window and reads the text with Windows OCR.",
+    language: "C#",
+    url: "https://github.com/ojeshfr/glyphlens",
+  },
+  {
+    name: "larpiano",
+    description: "A Windows MIDI-to-keyboard piano player for virtual pianos, with a floating overlay, song library and mapping profiles.",
+    language: "C#",
+    url: "https://github.com/ojeshfr/larpiano",
+  },
   {
     name: "ClickForge",
     description: "Windows mouse-click and key-repeat utility with global shortcuts and profiles, built with WPF.",
     language: "C#",
-    url: "https://github.com/ojeshfrrr/ClickForge",
+    url: "https://github.com/ojeshfr/ClickForge",
   },
   {
-    name: "portfolio-2",
-    description: "The source for this portfolio, built with Next.js App Router and React.",
-    language: "TypeScript",
-    url: "https://github.com/ojeshfrrr/portfolio-2",
+    name: "lane-studio",
+    description: "Campaign-led event curation site for LANE, built with the Next.js App Router and TypeScript.",
+    language: "CSS",
+    url: "https://github.com/ojeshfr/lane-studio",
   },
   {
     name: "teen-fiesta-red-room",
     description: "Next.js event website with local media and a Three.js starburst rendered with React Three Fiber.",
     language: "TypeScript",
-    provenance: "Fork of gauravxsuvo/teen-fiesta-red-room",
-    url: "https://github.com/ojeshfrrr/teen-fiesta-red-room",
+    provenance: "Originally from gauravxsuvo/teen-fiesta-red-room",
+    url: "https://github.com/ojeshfr/teen-fiesta-red-room",
+  },
+  {
+    name: "portfolio-website",
+    description: "An earlier OVIO studio portfolio built with Next.js App Router, React, TypeScript and plain CSS.",
+    language: "TypeScript",
+    url: "https://github.com/ojeshfr/portfolio-website",
   },
 ] as const;
 
 export const desktopProjects = [
+  {
+    name: "GlyphLens",
+    kind: "Windows utility / In development",
+    description:
+      "A privacy-first, offline screen translator. It captures a display or window with a live preview and reads text with Windows OCR; translation is not implemented yet.",
+    technology: "C# / Windows OCR / Python worker",
+    url: "https://github.com/ojeshfr/glyphlens",
+    linkLabel: "View repository",
+  },
   {
     name: "ClickForge",
     kind: "Windows utility",
     description:
       "A mouse-click and key-repeat utility with global shortcuts, profiles, and foreground-window checks.",
     technology: "C# / WPF / .NET",
-    url: "https://github.com/ojeshfrrr/ClickForge",
+    url: "https://github.com/ojeshfr/ClickForge",
     linkLabel: "View repository",
   },
   {
-    name: "Project Legion",
-    kind: "Independent derivative",
+    name: "larpiano",
+    kind: "Windows app / Public beta",
     description:
-      "An unofficial customization of Lenovo Legion Toolkit, reusing its existing C# and WPF implementation. Not affiliated with Lenovo or the original maintainers.",
-    technology: "C# / WPF / .NET",
-    url: "https://github.com/ojeshfrrr/personalized-legion-kit",
+      "Plays MIDI files on virtual pianos by dispatching Windows keyboard scan codes, with a dark desktop interface, floating overlay and customizable mapping profiles.",
+    technology: "C# / .NET",
+    url: "https://github.com/ojeshfr/larpiano",
+    linkLabel: "View repository",
+  },
+  {
+    name: "larpiano Overlay",
+    kind: "Prototype",
+    description:
+      "A standalone WPF prototype for larpiano's floating overlay, built to explore its visuals and interaction in isolation.",
+    technology: "C# / WPF",
+    url: "https://github.com/ojeshfr/larpiano-overlay-prototype",
+    linkLabel: "View repository",
+  },
+  {
+    name: "Screen Circle Click Tester",
+    kind: "Windows utility",
+    description:
+      "Draw a detection circle on the game screen, pick a target colour, and arm clicking with hotkeys. It runs only while another window is focused and accounts for display scaling.",
+    technology: "Python / Windows executable",
+    url: "https://github.com/ojeshfr/screen-circle-click-tester",
     linkLabel: "View repository",
   },
   {
     name: "Sora",
-    kind: "Public fork",
+    kind: "Windows hardware hub",
     description:
-      "A fork of gauravxsuvo/Sora, a Windows hardware hub for supported cooler displays, keyboards, and other devices.",
-    technology: "Windows / .NET",
-    url: "https://github.com/ojeshfrrr/Sora",
-    linkLabel: "View fork",
+      "A native hub for supported cooler displays, keyboards, mice, lighting, fans, storage health and Wi-Fi measurements. Originally published as gauravxsuvo/Sora.",
+    technology: "C# / .NET",
+    url: "https://github.com/ojeshfr/sora",
+    linkLabel: "View repository",
+  },
+  {
+    name: "Forklight",
+    kind: "Experimental",
+    description:
+      "A Windows desktop workspace for local coding agents that inspects Git repositories and run history. Task execution is disabled in the interface.",
+    technology: "JavaScript / Electron",
+    url: "https://github.com/ojeshfr/forklight",
+    linkLabel: "View repository",
   },
 ];
