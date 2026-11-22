@@ -49,7 +49,18 @@ export const selectedRepositories = [
   },
 ] as const;
 
-export const desktopProjects = [
+export type DesktopProject = {
+  name: string;
+  kind: string;
+  description: string;
+  technology: string;
+  url: string;
+  linkLabel: string;
+  /** An unedited capture of the app's own interface, taken from its public repository. */
+  screenshot?: { src: string; alt: string; aspect: number };
+};
+
+export const desktopProjects: DesktopProject[] = [
   {
     name: "GlyphLens",
     kind: "Windows utility / In development",
@@ -58,6 +69,11 @@ export const desktopProjects = [
     technology: "C# / Windows OCR / Python worker",
     url: "https://github.com/ojeshfr/glyphlens",
     linkLabel: "View repository",
+    screenshot: {
+      src: "/work/repos/glyphlens-capture.webp",
+      alt: "GlyphLens capture page with screen-capture controls, text recognition and translation panels, and no capture running.",
+      aspect: 1479 / 984,
+    },
   },
   {
     name: "ClickForge",
@@ -67,6 +83,11 @@ export const desktopProjects = [
     technology: "C# / WPF / .NET",
     url: "https://github.com/ojeshfr/ClickForge",
     linkLabel: "View repository",
+    screenshot: {
+      src: "/work/repos/clickforge-dashboard.webp",
+      alt: "ClickForge dashboard with click-speed controls, start, pause and emergency stop buttons, and a selected-target panel.",
+      aspect: 1280 / 880,
+    },
   },
   {
     name: "larpiano",
@@ -76,6 +97,11 @@ export const desktopProjects = [
     technology: "C# / .NET",
     url: "https://github.com/ojeshfr/larpiano",
     linkLabel: "View repository",
+    screenshot: {
+      src: "/work/repos/larpiano-player.webp",
+      alt: "larpiano's piano player window with its Roblox window and song pickers, quick actions and playback controls.",
+      aspect: 1536 / 1024,
+    },
   },
   {
     name: "larpiano Overlay",
@@ -103,6 +129,11 @@ export const desktopProjects = [
     technology: "C# / .NET",
     url: "https://github.com/ojeshfr/sora",
     linkLabel: "View repository",
+    screenshot: {
+      src: "/work/repos/sora-updates.webp",
+      alt: "Sora's Updates page with the installed version, update checks and the device navigation sidebar.",
+      aspect: 1288 / 782,
+    },
   },
   {
     name: "Forklight",

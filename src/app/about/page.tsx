@@ -83,6 +83,10 @@ export default function AboutPage() {
             <div><p className={styles.projectKind}>{project.kind}</p><h3>{project.name}</h3></div>
             <div><p className={styles.projectDescription}>{project.description}</p><p className={styles.technology}>{project.technology}</p></div>
             <a className={styles.textLink} href={project.url} rel="noreferrer" target="_blank" aria-label={`${project.linkLabel}: ${project.name}`}>{project.linkLabel} <span aria-hidden="true">↗</span></a>
+            {project.screenshot ? <figure className={styles.desktopShot}>
+              <Image src={project.screenshot.src} alt={project.screenshot.alt} width={1600} height={Math.round(1600 / project.screenshot.aspect)} sizes="(max-width: 760px) 92vw, 62rem" quality={90} />
+              <figcaption>{project.name} interface, as captured in its public repository.</figcaption>
+            </figure> : null}
           </article>
         ))}
       </section>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { IdentityStage } from "@/components/identity-stage";
 import { HomeScroll } from "@/components/home-scroll";
 import { PortalHero } from "@/components/portal-hero";
+import { buildSceneItems } from "@/lib/scene";
 import { projects } from "@/lib/projects";
 import { site } from "@/lib/site";
 import { desktopProjects, profile } from "@/lib/profile";
@@ -13,7 +14,7 @@ export default function HomePage() {
   return (
     <div className="page-home page-home--identity">
       <IdentityStage projects={projects} />
-      <PortalHero projects={projects} />
+      <PortalHero items={buildSceneItems(projects)} />
       <HomeScroll />
       <section className={`home-about ${styles.homeSection}`} id="about" aria-labelledby="home-about-title">
         <Atmosphere variant="profile" />
