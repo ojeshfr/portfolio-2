@@ -131,7 +131,7 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
     : <Link href={target.href}>{label}</Link>;
 
   return (
-    <section className="spatial-hero" ref={root} aria-label="Spatial project gallery">
+    <section className="spatial-hero" ref={root} aria-label="Spatial project gallery" id="gallery">
       <AmbientField className="ambient-field--cosmic" />
       <h2 className="visually-hidden">Selected web projects and Windows tools in three dimensions</h2>
       <div className="spatial-note">Inside the work<br /><span>{count} projects · {driven ? "Scroll to fly through" : "Tap a slide to explore"}</span></div>
@@ -225,7 +225,7 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
           </div>)}
         </motion.div>}
       </AnimatePresence>
-      <a href="#about" className="spatial-scroll" aria-label="Continue to about and contact"><span>Continue below</span> ↓</a>
+      <a href="#selected-work" className="spatial-scroll" aria-label="Continue to selected work"><span>Continue below</span> ↓</a>
     </section>
   );
 }

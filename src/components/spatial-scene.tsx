@@ -25,7 +25,7 @@ type SceneProps = {
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const lerp3 = (a: Vec3, b: Vec3, t: number): Vec3 => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
 const EDGE = new Color("#424247");
-const EDGE_FOCUS = new Color("#c8795b");
+const EDGE_FOCUS = new Color("#2997ff");
 const HALF_FOV = Math.tan(20 * Math.PI / 180);
 // Vertical offsets break the corridor's rhythm so it reads as a path, not a row.
 const LIFT = [.6, -.5, .9, -.2, .5, -.8, .3, -.4, .7, -.3];
@@ -66,7 +66,7 @@ function Dust({ length, spread }: { length: number; spread: number }) {
   }, [length, spread]);
   return <points>
     <bufferGeometry><bufferAttribute attach="attributes-position" args={[positions, 3]} /></bufferGeometry>
-    <pointsMaterial color="#e9e5d8" size={.05} sizeAttenuation transparent opacity={.4} depthWrite={false} toneMapped={false} />
+    <pointsMaterial color="#f5f5f7" size={.05} sizeAttenuation transparent opacity={.4} depthWrite={false} toneMapped={false} />
   </points>;
 }
 
