@@ -1048,6 +1048,48 @@ main:focus {
   margin-left: 0.4rem;
 }
 
+/* Keyboard shortcut helper pill */
+.spatial-shortcuts {
+  position: absolute;
+  z-index: 10;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(29, 29, 31, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-dark-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-dark-secondary);
+  pointer-events: none;
+  box-shadow: var(--shadow-glass);
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 900px) {
+  .spatial-shortcuts {
+    display: none;
+  }
+}
+
+/* 3D Perspective Tilt on Cards (Priority 5) */
+.tilt-3d-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--radius-card);
+}
+
+.home-hero-parallax {
+  width: 100%;
+}
+
 /* Progress bar along the bottom */
 .spatial-progress {
   position: absolute;

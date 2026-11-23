@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PortalHero } from "@/components/portal-hero";
+import { HeroParallax3D } from "@/components/hero-parallax-3d";
+import { CardTilt3D } from "@/components/card-tilt-3d";
 import { buildSceneItems } from "@/lib/scene";
 import { projects } from "@/lib/projects";
 import { desktopProjects, profile } from "@/lib/profile";
@@ -11,25 +13,27 @@ export default function HomePage() {
 
   return (
     <div className="page-home">
-      {/* 1. Clean Light Hero Section */}
+      {/* 1. Clean Light Hero Section with subtle layered perspective depth */}
       <section className="home-hero" aria-labelledby="hero-title">
-        <div className="container home-hero__inner">
-          <span className="home-hero__eyebrow">Creative Development</span>
-          <h1 className="home-hero__title" id="hero-title">
-            Ojesh
-          </h1>
-          <p className="home-hero__subhead">
-            {profile.introduction} {profile.description}
-          </p>
-          <div className="home-hero__actions">
-            <a className="btn btn--primary" href="#gallery">
-              Explore work <span aria-hidden="true" className="chevron">↓</span>
-            </a>
-            <Link className="btn btn--secondary" href="/about">
-              About Ojesh <span aria-hidden="true" className="chevron">›</span>
-            </Link>
+        <HeroParallax3D>
+          <div className="container home-hero__inner">
+            <span className="home-hero__eyebrow">Creative Development</span>
+            <h1 className="home-hero__title" id="hero-title">
+              Ojesh
+            </h1>
+            <p className="home-hero__subhead">
+              {profile.introduction} {profile.description}
+            </p>
+            <div className="home-hero__actions">
+              <a className="btn btn--primary" href="#gallery">
+                Explore work <span aria-hidden="true" className="chevron">↓</span>
+              </a>
+              <Link className="btn btn--secondary" href="/about">
+                About Ojesh <span aria-hidden="true" className="chevron">›</span>
+              </Link>
+            </div>
           </div>
-        </div>
+        </HeroParallax3D>
       </section>
 
       {/* 2. 3D Fly-Through Gallery (Dark Product Reel) */}
@@ -50,27 +54,29 @@ export default function HomePage() {
 
           <div className="work-bento">
             {projects.map((project) => (
-              <Link className="work-bento__card" href={`/work/${project.slug}`} key={project.slug}>
-                <div className="work-bento__head">
-                  <span className="work-bento__type">
-                    {project.type} · {project.year}
+              <CardTilt3D key={project.slug}>
+                <Link className="work-bento__card" href={`/work/${project.slug}`}>
+                  <div className="work-bento__head">
+                    <span className="work-bento__type">
+                      {project.type} · {project.year}
+                    </span>
+                    <h3 className="work-bento__title">{project.title}</h3>
+                    <p className="work-bento__summary">{project.summary}</p>
+                  </div>
+                  <div className="work-bento__media">
+                    <Image
+                      src={project.cover.src}
+                      alt={project.cover.alt}
+                      fill
+                      sizes="(max-width: 820px) 100vw, 50vw"
+                      loading="lazy"
+                    />
+                  </div>
+                  <span className="work-bento__cta">
+                    View case study <span aria-hidden="true" className="chevron">›</span>
                   </span>
-                  <h3 className="work-bento__title">{project.title}</h3>
-                  <p className="work-bento__summary">{project.summary}</p>
-                </div>
-                <div className="work-bento__media">
-                  <Image
-                    src={project.cover.src}
-                    alt={project.cover.alt}
-                    fill
-                    sizes="(max-width: 820px) 100vw, 50vw"
-                    loading="lazy"
-                  />
-                </div>
-                <span className="work-bento__cta">
-                  View case study <span aria-hidden="true" className="chevron">›</span>
-                </span>
-              </Link>
+                </Link>
+              </CardTilt3D>
             ))}
           </div>
         </div>
@@ -91,36 +97,37 @@ export default function HomePage() {
 
           <div className="tools-grid">
             {featuredTools.map((tool) => (
-              <a
-                className="tool-card"
-                href={tool.url}
-                key={tool.name}
-                rel="noreferrer"
-                target="_blank"
-              >
-                <div>
-                  <span className="tool-card__tag">{tool.kind}</span>
-                  <h3 className="tool-card__title">{tool.name}</h3>
-                  <p className="tool-card__desc">{tool.description}</p>
-                </div>
-                {tool.screenshot && (
-                  <div className="tool-card__media">
-                    <Image
-                      src={tool.screenshot.src}
-                      alt={tool.screenshot.alt}
-                      fill
-                      sizes="(max-width: 820px) 100vw, 50vw"
-                      loading="lazy"
-                    />
+              <CardTilt3D key={tool.name}>
+                <a
+                  className="tool-card"
+                  href={tool.url}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <div>
+                    <span className="tool-card__tag">{tool.kind}</span>
+                    <h3 className="tool-card__title">{tool.name}</h3>
+                    <p className="tool-card__desc">{tool.description}</p>
                   </div>
-                )}
-                <div>
-                  <p className="tool-card__tech">{tool.technology}</p>
-                  <span className="tool-card__cta">
-                    View on GitHub <span aria-hidden="true" className="chevron">↗</span>
-                  </span>
-                </div>
-              </a>
+                  {tool.screenshot && (
+                    <div className="tool-card__media">
+                      <Image
+                        src={tool.screenshot.src}
+                        alt={tool.screenshot.alt}
+                        fill
+                        sizes="(max-width: 820px) 100vw, 50vw"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <p className="tool-card__tech">{tool.technology}</p>
+                    <span className="tool-card__cta">
+                      View on GitHub <span aria-hidden="true" className="chevron">↗</span>
+                    </span>
+                  </div>
+                </a>
+              </CardTilt3D>
             ))}
           </div>
         </div>

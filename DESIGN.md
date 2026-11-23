@@ -238,3 +238,49 @@ The 3D WebGL corridor gallery remains the centerpiece product showcase of the ho
   - `.btn.btn--primary` and `.btn.btn--secondary` for action groups.
   - `.text-link` with `<span className="chevron">›</span>` for contextual links.
   - `.card` and `.bento` for content grids.
+
+---
+
+## 9. Phase 3: 3D Spatial Gallery Redesign & System Enhancements (November 2026)
+
+Phase 3 elevates the homepage 3D gallery and the site's tactile spatial qualities to a world-class standard while maintaining strict performance, accessibility, and zero-jank standards.
+
+### 9.1 Camera & Motion Physics Model
+- **Critically-Damped Smoothing:** Replaced raw scroll mapping with exponential dampening (`damp(current, target, lambda, dt)`), making flight completely framerate independent across 120Hz, 60Hz, and 30Hz displays.
+- **Eased Dwell Plateaus:** Refined `dwell()` with a smooth Hermite plateau around integer slide positions. Slides rest comfortably in focus for viewing, gliding with liquid ease between chapters.
+- **Dynamic Corridor Banking:** Real-time velocity-aware banking (`corridorBank()`) tilts the camera into alternating corridor curves with physical inertia, evoking a cinematic steady-cam flight.
+- **Decoupled Scrubbing:** Lenis window smoothing and ScrollTrigger pin scrub feed the target state directly, leaving the internal physics loop to provide direct, interruptible, and reversible dampening without double-smoothing lag.
+
+### 9.2 Premium Hardware Visuals & Custom Shaders
+- **Precision SDF Rounded Panels:** Slides render via a custom signed distance field (SDF) shader with sub-pixel antialiasing at all distances and angles. Features an authentic precision dark graphite bezel (`#1c1c1f`), an inner hairline boundary, and a top-edge chamfer highlight.
+- **Active Focus Edge Highlight:** The focused slide's hairline boundary dynamically blooms from graphite into Apple electric blue (`#2997ff` to `#5ac8fa`), establishing immediate visual hierarchy.
+- **Laminated Glass Specular Sheen:** An interactive specular light reflection glides across each slide screen tracking mouse UV coordinates and view angle, giving the screenshot the tangible feel of laminated display glass.
+- **Glossy Keynote Floor Stage:** A dark reflective stage plane (`y = -4.0`) extends down the corridor with a custom shader rendering a blurred specular reflection pool and subtle guidance hairlines that track the active slide position.
+- **Atmospheric Distance Falloff:** Distant slides in the corridor smoothly attenuate in contrast and brightness, focusing attention on the active presentation.
+- **Assemble Intro & Skeleton State:** On initial load, slides smoothly settle into their corridor formation. A shimmering skeleton state displays while textures decode, preventing pop-in.
+
+### 9.3 Adaptive Post-Processing & Quality Tiers
+- **Custom Post-Processing Pipeline:** Built using Three.js built-in `EffectComposer`, `RenderPass`, `ShaderPass`, and `OutputPass`. Combines highlight bloom on active borders, cinematic vignette, and micro film grain to prevent banding on OLED blacks.
+- **Performance Monitoring:** An internal frame time monitor tracks delta times. If frame rates drop consistently below threshold, the quality tier automatically steps down to preserve 60fps responsiveness.
+- **Three Quality Tiers:**
+  - *High:* Full post-processing pass (bloom, vignette, grain), DPR 1.5, glossy floor reflection.
+  - *Medium:* Fast vignette + grain pass, DPR 1.2, simplified reflections.
+  - *Low:* Direct WebGL render pass, DPR 1.0, basic contact shadows.
+- **User Control & Fallbacks:** A dedicated glass quality switcher (`3D: High | Med | Low`) in the spatial controls allows user override. Post-processing is automatically bypassed on touch viewports and under `prefers-reduced-motion`.
+
+### 9.4 Interaction & Accessibility Polish
+- **Hover Lift & 3D Tilt:** Hovering over a slide smoothly lifts it in $z$ by $+0.65$ units and applies a gyroscopic 3D tilt ($\pm 8^\circ$) based on cursor UV position.
+- **Affordance & Direct Open:** The mouse cursor switches to `pointer` when hovering over the active slide. Clicking the active slide directly navigates to the project case study or GitHub repository.
+- **Full Keyboard Navigation:** Left / Right and Up / Down arrow keys step sequentially through corridor slides when the gallery is in view. Pressing `Enter` opens the active project.
+- **Documented Shortcuts:** A subtle glass shortcut pill (`[← / → Navigate · Enter to open]`) is presented at the bottom of the gallery.
+- **WCAG 2.2 AA Compliance:** The canvas remains `aria-hidden="true"`, with full screen reader and keyboard access provided via the accessible DOM chapter rail and project index.
+
+### 9.5 3D Beyond the Gallery (CSS 3D)
+- **Interactive Card Tilt (`CardTilt3D`):** Applied to the homepage bento grid, Windows tools grid, and `/work` case study cards. Employs pointer-driven perspective tilt ($\pm 3.2^\circ$) and a moving specular glare sheen overlay.
+- **Hero Layered Parallax (`HeroParallax3D`):** Light home hero elements (eyebrow, title, subhead, actions) float at staggered optical depths in response to cursor movement.
+- **Strict Restraint:** Active exclusively on `@media (hover: hover) and (pointer: fine)`, completely disabled under `prefers-reduced-motion: reduce`, and implemented with pure transform properties with zero layout shift.
+
+### 9.6 Dependency Audit
+- **0 New Dependencies Added:** All post-processing and shaders were implemented using Three.js 0.186.1 built-in addons (`three/examples/jsm/postprocessing/*`), avoiding external package bloat and peer dependency conflicts.
+- **Zero Route Growth:** Non-home route bundle size remains exactly 423.1 KB (855.9 KB with root), fully preserving initial page load performance across all secondary routes.
+

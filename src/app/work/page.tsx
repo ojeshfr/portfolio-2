@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ProjectCard } from "@/components/project-card";
+import { CardTilt3D } from "@/components/card-tilt-3d";
 import { projects } from "@/lib/projects";
 import { desktopProjects } from "@/lib/profile";
 import { pageMetadata } from "@/lib/seo";
@@ -39,7 +40,7 @@ export default function WorkPage() {
       {/* 2. Windows Tools Section */}
       <section className="section section--tint" id="desktop-tools" aria-labelledby="tools-heading">
         <div className="container">
-          <div className="section-head" data-scroll-reveal>
+          <header className="section-head" data-scroll-reveal>
             <span className="eyebrow">Desktop Engineering</span>
             <h2 className="headline" id="tools-heading">
               Built for Windows.
@@ -47,44 +48,47 @@ export default function WorkPage() {
             <p className="subhead">
               Native utilities and screen overlays developed with C# and .NET.
             </p>
-          </div>
+          </header>
 
           <div className={styles.toolsGrid}>
             {desktopProjects.map((tool) => (
-              <a
-                className={styles.toolCard}
-                href={tool.url}
-                key={tool.name}
-                rel="noreferrer"
-                target="_blank"
-                data-scroll-reveal
-              >
-                <div className={styles.toolCardHeader}>
-                  <div className={styles.toolCardMeta}>
-                    <span className={styles.toolTag}>{tool.kind}</span>
-                    <h3 className={styles.toolTitle}>{tool.name}</h3>
+              <CardTilt3D key={tool.name}>
+                <a
+                  className={styles.toolCard}
+                  href={tool.url}
+                  rel="noreferrer"
+                  target="_blank"
+                  data-scroll-reveal
+                >
+                  <div className={styles.toolCardHeader}>
+                    <div className={styles.toolCardMeta}>
+                      <span className={styles.toolTag}>{tool.kind}</span>
+                      <h3 className={styles.toolTitle}>{tool.name}</h3>
+                    </div>
+                    <span className={styles.toolExternal} aria-hidden="true">
+                      ↗
+                    </span>
                   </div>
-                  <span className={styles.toolExternal} aria-hidden="true">↗</span>
-                </div>
-                <p className={styles.toolDesc}>{tool.description}</p>
-                {tool.screenshot && (
-                  <div className={styles.toolMedia}>
-                    <Image
-                      src={tool.screenshot.src}
-                      alt={tool.screenshot.alt}
-                      fill
-                      sizes="(max-width: 820px) 100vw, 50vw"
-                      loading="lazy"
-                    />
+                  <p className={styles.toolDesc}>{tool.description}</p>
+                  {tool.screenshot && (
+                    <div className={styles.toolMedia}>
+                      <Image
+                        src={tool.screenshot.src}
+                        alt={tool.screenshot.alt}
+                        fill
+                        sizes="(max-width: 820px) 100vw, 50vw"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <div className={styles.toolFooter}>
+                    <span className={styles.toolTech}>{tool.technology}</span>
+                    <span className="text-link">
+                      View on GitHub <span aria-hidden="true" className="chevron">↗</span>
+                    </span>
                   </div>
-                )}
-                <div className={styles.toolFooter}>
-                  <span className={styles.toolTech}>{tool.technology}</span>
-                  <span className="text-link">
-                    View on GitHub <span aria-hidden="true" className="chevron">↗</span>
-                  </span>
-                </div>
-              </a>
+                </a>
+              </CardTilt3D>
             ))}
           </div>
         </div>
