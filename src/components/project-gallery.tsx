@@ -7,20 +7,39 @@ import type { Project, ProjectImage } from "@/lib/projects";
 import { usePrefersReducedMotion } from "@/hooks/use-prefers-reduced-motion";
 
 function imageSizes(image: ProjectImage) {
-  return image.aspect < 1 ? "(max-width: 760px) calc(100vw - 2.2rem), 400px" : "(max-width: 760px) calc(100vw - 2.2rem), 92vw";
+  return image.aspect < 1
+    ? "(max-width: 760px) calc(100vw - 2.5rem), 480px"
+    : "(max-width: 760px) calc(100vw - 2.5rem), 1080px";
 }
 
 function GalleryThumbnail({ image }: { image: ProjectImage }) {
   const [failed, setFailed] = useState(false);
   return (
     <span className="case-gallery__thumbnail" aria-hidden="true">
-      {!failed ? <Image alt="" fill loading="lazy" onError={() => setFailed(true)} sizes="(max-width: 760px) 76px, 92px" src={image.src} /> : null}
+      {!failed ? (
+        <Image
+          alt=""
+          fill
+          loading="lazy"
+          onError={() => setFailed(true)}
+          sizes="52px"
+          src={image.src}
+        />
+      ) : null}
     </span>
   );
 }
 
-function GalleryImage({ image, eager, changed, reduced }: {
-  image: ProjectImage; eager: boolean; changed: boolean; reduced: boolean;
+function GalleryImage({
+  image,
+  eager,
+  changed,
+  reduced,
+}: {
+  image: ProjectImage;
+  eager: boolean;
+  changed: boolean;
+  reduced: boolean;
 }) {
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [attempt, setAttempt] = useState(0);
@@ -31,7 +50,11 @@ function GalleryImage({ image, eager, changed, reduced }: {
       className="case-gallery__frame"
       exit={changed && !reduced ? { opacity: 1 } : undefined}
       initial={changed && !reduced ? { opacity: 0 } : false}
-      transition={reduced ? { duration: 0 } : { duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
+      transition={
+        reduced
+          ? { duration: 0 }
+          : { duration: 0.25, ease: [0.28, 0.11, 0.32, 1] }
+      }
       animate={{ opacity: 1 }}
     >
       {status !== "error" ? (
@@ -47,23 +70,41 @@ function GalleryImage({ image, eager, changed, reduced }: {
           src={image.src}
         />
       ) : null}
-      {status === "loading" ? <p className="case-gallery__status" role="status">Loading image…</p> : null}
+      {status === "loading" ? (
+        <p className="case-gallery__status" role="status">
+          Loading image…
+        </p>
+      ) : null}
       {status === "error" ? (
         <div className="case-gallery__status" role="status">
           <p>This image is unavailable.</p>
           <p>Try again or choose another image.</p>
-          <button className="button button--dark" onClick={(event) => {
-            setStatus("loading");
-            setAttempt((current) => current + 1);
-            event.currentTarget.closest<HTMLElement>(".case-gallery__image")?.focus({ preventScroll: true });
-          }} type="button">Retry image</button>
+          <button
+            className="btn btn--secondary"
+            onClick={(event) => {
+              setStatus("loading");
+              setAttempt((current) => current + 1);
+              event.currentTarget
+                .closest<HTMLElement>(".case-gallery__image")
+                ?.focus({ preventScroll: true });
+            }}
+            type="button"
+          >
+            Retry image
+          </button>
         </div>
       ) : null}
     </motion.div>
   );
 }
 
-export function ProjectGallery({ project, lead = false }: { project: Project; lead?: boolean }) {
+export function ProjectGallery({
+  project,
+  lead = false,
+}: {
+  project: Project;
+  lead?: boolean;
+}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasChangedImage, setHasChangedImage] = useState(false);
   const [pending, setPending] = useState(false);
@@ -71,12 +112,14 @@ export function ProjectGallery({ project, lead = false }: { project: Project; le
   const requested = useRef(0);
   const request = useRef(0);
   const reduced = usePrefersReducedMotion();
-  // Keep the cover and supporting material in one visual sequence. This makes
-  // the lead image navigable and gives each project a complete image index.
+
+  // Keep the cover and supporting material in one visual sequence.
   const images = [project.cover, ...project.gallery];
   const image = images[activeIndex];
   const imageCount = images.length;
-  useLayoutEffect(() => () => { request.current++; }, []);
+  useLayoutEffect(() => () => {
+    request.current++;
+  }, []);
 
   if (!image || imageCount === 0) return null;
 
@@ -85,22 +128,31 @@ export function ProjectGallery({ project, lead = false }: { project: Project; le
     const token = ++request.current;
     const next = images[index];
     const preload = new window.Image();
-    const { props } = getImageProps({ src: next.src, alt: "", fill: true, quality: 90, sizes: imageSizes(next) });
+    const { props } = getImageProps({
+      src: next.src,
+      alt: "",
+      fill: true,
+      quality: 90,
+      sizes: imageSizes(next),
+    });
     preload.sizes = props.sizes ?? "";
     preload.srcset = props.srcSet ?? "";
     preload.src = props.src;
     setPending(true);
     setFailedIndex(null);
-    void preload.decode().then(() => {
-      if (request.current !== token) return;
-      setActiveIndex(index);
-      setHasChangedImage(true);
-      setPending(false);
-    }).catch(() => {
-      if (request.current !== token) return;
-      setFailedIndex(index);
-      setPending(false);
-    });
+    void preload
+      .decode()
+      .then(() => {
+        if (request.current !== token) return;
+        setActiveIndex(index);
+        setHasChangedImage(true);
+        setPending(false);
+      })
+      .catch(() => {
+        if (request.current !== token) return;
+        setFailedIndex(index);
+        setPending(false);
+      });
   }
 
   function moveImage(direction: -1 | 1) {
@@ -119,7 +171,10 @@ export function ProjectGallery({ project, lead = false }: { project: Project; le
   }
 
   return (
-    <section aria-label={`${project.title} project images`} className={`case-gallery${lead ? " case-gallery--lead" : ""}`}>
+    <section
+      aria-label={`${project.title} project images`}
+      className={`case-gallery${lead ? " case-gallery--lead" : ""}`}
+    >
       <div
         aria-label={`Image ${activeIndex + 1} of ${imageCount}: ${image.caption}. Use left and right arrow keys to browse.`}
         aria-roledescription="image viewer"
@@ -144,19 +199,54 @@ export function ProjectGallery({ project, lead = false }: { project: Project; le
       </div>
 
       <div className="case-gallery__caption">
-        <p aria-live="polite" aria-atomic="true"><span className="visually-hidden">Image {activeIndex + 1} of {imageCount}. </span>{image.caption}</p>
+        <p aria-live="polite" aria-atomic="true">
+          <span className="visually-hidden">
+            Image {activeIndex + 1} of {imageCount}.{" "}
+          </span>
+          {image.caption}
+        </p>
         <div aria-label="Gallery navigation" className="case-gallery__navigation">
-          <span aria-hidden="true">{String(activeIndex + 1).padStart(2, "0")} / {String(imageCount).padStart(2, "0")}</span>
-          <button aria-label="Previous image" onClick={() => moveImage(-1)} type="button">←</button>
-          <button aria-label="Next image" onClick={() => moveImage(1)} type="button">→</button>
+          <span aria-hidden="true">
+            {String(activeIndex + 1).padStart(2, "0")} /{" "}
+            {String(imageCount).padStart(2, "0")}
+          </span>
+          <button
+            aria-label="Previous image"
+            onClick={() => moveImage(-1)}
+            type="button"
+          >
+            ←
+          </button>
+          <button
+            aria-label="Next image"
+            onClick={() => moveImage(1)}
+            type="button"
+          >
+            →
+          </button>
         </div>
       </div>
 
       <div className="case-gallery__request" role="status" aria-live="polite">
-        {pending ? "Loading selected image…" : failedIndex !== null ? <><span>The selected image couldn’t load. Your current view is still available.</span><button type="button" onClick={() => selectImage(failedIndex)}>Retry image</button></> : null}
+        {pending ? (
+          "Loading selected image…"
+        ) : failedIndex !== null ? (
+          <>
+            <span>
+              The selected image couldn’t load. Your current view is still available.
+            </span>
+            <button type="button" onClick={() => selectImage(failedIndex)}>
+              Retry image
+            </button>
+          </>
+        ) : null}
       </div>
 
-      <div aria-label="Choose an image" className="case-gallery__choices" role="group">
+      <div
+        aria-label="Choose an image"
+        className="case-gallery__choices"
+        role="group"
+      >
         {images.map((item, index) => (
           <button
             aria-label={`Show image ${index + 1}: ${item.caption}`}
@@ -170,20 +260,30 @@ export function ProjectGallery({ project, lead = false }: { project: Project; le
                 event.preventDefault();
                 const next = (index + 1) % imageCount;
                 selectImage(next);
-                (event.currentTarget.parentElement?.children[next] as HTMLButtonElement)?.focus();
+                (
+                  event.currentTarget.parentElement?.children[next] as HTMLButtonElement
+                )?.focus();
               } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
                 event.preventDefault();
                 const prev = (index - 1 + imageCount) % imageCount;
                 selectImage(prev);
-                (event.currentTarget.parentElement?.children[prev] as HTMLButtonElement)?.focus();
+                (
+                  event.currentTarget.parentElement?.children[prev] as HTMLButtonElement
+                )?.focus();
               } else if (event.key === "Home") {
                 event.preventDefault();
                 selectImage(0);
-                (event.currentTarget.parentElement?.children[0] as HTMLButtonElement)?.focus();
+                (
+                  event.currentTarget.parentElement?.children[0] as HTMLButtonElement
+                )?.focus();
               } else if (event.key === "End") {
                 event.preventDefault();
                 selectImage(imageCount - 1);
-                (event.currentTarget.parentElement?.children[imageCount - 1] as HTMLButtonElement)?.focus();
+                (
+                  event.currentTarget.parentElement?.children[
+                    imageCount - 1
+                  ] as HTMLButtonElement
+                )?.focus();
               }
             }}
             type="button"
