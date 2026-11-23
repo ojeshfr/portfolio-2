@@ -468,3 +468,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+.desktopLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}

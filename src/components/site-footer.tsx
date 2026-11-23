@@ -49,6 +49,11 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
+                <a href={`${site.githubUrl}/portfolio-2`} rel="noreferrer" target="_blank">
+                  Source of this site <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+              <li>
                 <span>C# &amp; TypeScript</span>
               </li>
               <li>

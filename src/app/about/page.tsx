@@ -225,24 +225,26 @@ export default function AboutPage() {
                     </span>
                   )}
                   <p className={styles.desktopTech}>{tool.technology}</p>
-                  <a
-                    className="text-link"
-                    href={tool.url}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {tool.linkLabel} <span aria-hidden="true" className="chevron">↗</span>
-                  </a>
-                  {tool.release ? (
+                  <div className={styles.desktopLinks}>
                     <a
                       className="text-link"
-                      href={tool.release.url}
+                      href={tool.url}
                       rel="noreferrer"
                       target="_blank"
                     >
-                      Latest release {tool.release.label} <span aria-hidden="true" className="chevron">↗</span>
+                      {tool.linkLabel} <span aria-hidden="true" className="chevron">↗</span>
                     </a>
-                  ) : null}
+                    {tool.release ? (
+                      <a
+                        className="text-link"
+                        href={tool.release.url}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        Latest release {tool.release.label} <span aria-hidden="true" className="chevron">↗</span>
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
               </article>
             ))}
@@ -300,7 +302,7 @@ export default function AboutPage() {
               </a>
             </div>
             <p className={styles.closingMeta}>
-              Based in {profile.location} · C# &amp; TypeScript · Available for engineering &amp; creative development
+              Based in {profile.location} · C# &amp; TypeScript
             </p>
           </div>
         </div>
