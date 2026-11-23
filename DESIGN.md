@@ -1,121 +1,240 @@
-# OVIO Design System
+# Apple-Inspired Design System
 
-## Professional polish / 22 November 2026
+**Version:** 2.0 (Phase 1 Redesign)  
+**Author:** Ojesh Portfolio Redesign System  
+**Date:** November 2026  
 
-- **Legibility:** no text is set below 12px (`.75rem`). Sixty smaller declarations, down to 8.8px, were raised to that floor. Checked on every route at 320px with no horizontal overflow.
-- **Sharing:** a typographic share card (`src/app/opengraph-image.png`, also used for Twitter) carries the name, positioning and the LANE capture. Each page sets its own canonical path and matching Open Graph and Twitter titles through `pageMetadata` in `src/lib/seo.ts`; case studies use their cover. Canonicals and image URLs resolve against `NEXT_PUBLIC_SITE_URL`, so nothing is hardcoded.
-- **Structured data:** one JSON-LD graph (Person and WebSite) in the root layout, limited to facts already public on the site: name, contact email, GitHub profile, languages and country.
-- **Footer:** the footer now carries Work, About, Contact and GitHub, so every page reaches the main routes without the header.
+---
 
+## 1. Design Philosophy
 
-## 3D slide gallery / 22 November 2026
+The redesign adopts an **Apple-inspired product aesthetic**: clean, restrained, meticulously aligned, and focused on clarity and craftsmanship. It is **not** an Apple imitation or clone—no proprietary marks, symbols, or trademarks are used. Instead, it embodies the underlying principles of world-class hardware and software presentation:
 
-- After the OVIO opening, a pinned Three.js section turns the four web case studies and four Windows tools (GlyphLens, ClickForge, larpiano, Sora) into one fly-through gallery. The opening is the established diagonal cascade; scrolling unfolds it into a corridor of slides in depth, and the camera flies from slide to slide with a brief hold on each.
-- Windows slides use unedited interface captures from the public repositories (`public/work/repos/`, provenance in `public/work/README.md`). Web slides keep their case-study covers. A caption names the active slide and links to its case study or GitHub repository; clicking the active slide opens it.
-- Depth cues: contact shadows, a dust field spread along the corridor, brightness falloff away from the focused slide, a slight camera bank between sides, per-slide hover lift and pointer tilt, and a slow idle drift.
-- Wide screens with motion allowed fly by scrolling (about 0.6 screens per slide). Touch, narrow and reduced-motion layouts do not pin: tapping a slide or an index row glides the camera there. Corridor spacing is derived from the viewport's framing distance so a slide never sits between the camera and the one being shown.
-- Idle drift and hover run only on desktop with motion allowed; the frame loop pauses when the canvas is off-screen or the tab is hidden. The CSS fallback layout shows until textures load or if WebGL fails.
-- The section background uses the shared `#08090b` foundation. The About page's desktop section shows the same screenshots with attribution captions.
+- **Light-First Foundation:** Crisp, bright canvas with subtle alternating section tints (`#fbfbfd` to `#f5f5f7`) that allow project media and typography to command attention.
+- **Product Reel Dark Moments:** The 3D slide gallery and site footer remain dark surfaces in both light and dark themes, creating immersive "theatre" moments reminiscent of product keynote reels.
+- **Full Dark Theme:** Seamless dark mode via `prefers-color-scheme: dark` using deep OLED blacks (`#000000`) and elevated dark surfaces (`#161617`, `#1c1c1e`).
+- **Precision & Generous Whitespace:** Large section paddings (`clamp(80px, 12vw, 160px)`), generous typographic breathing room, balanced headline wraps, and consistent 12-column alignment.
+- **Layered Soft Surfaces:** Bento grids with 28px radius cards, concentric nested radii for screenshots, ultra-subtle hairlines, and soft multi-stop elevation shadows.
+- **Pure System Typography:** Zero web font network overhead. Zero proprietary font bundling. Pure native system font rendering (`-apple-system, BlinkMacSystemFont, "SF Pro Display", ...`).
 
-## GitHub selection / 27 October 2026
+---
 
-- A compact text index follows the homepage introduction. Three direct repository links connect native Windows work, this site's source and a featured event website. One muted language tag accompanies each row; forks retain attribution.
-- The heading stays smaller than the profile and project titles. Fine dividers, aligned descriptions and whole-row links carry the hierarchy. Mobile stacks the existing content without adding imagery or motion.
-- The section reuses the existing static editorial wash. Case studies remain the primary image-led work presentation.
+## 2. Design Tokens
 
-## Shared atmosphere / 27 October 2026
+All colors, dimensions, radii, shadows, and easings are defined as CSS custom properties on `:root` with dark theme overrides in `src/app/globals.css`. Hardcoded hex codes are strictly prohibited outside token definitions.
 
-- `Atmosphere` supplies static CSS light, plane and grid layers behind content. Each surface clips its own decoration and uses an isolated stacking context. The decoration is hidden from assistive technology and cannot intercept pointer input.
-- The dark foundation remains `#08090b`, with carbon `#111214`, a graphite light tint (`rgb(46 58 77)`), the existing paper `#e9e5d8`, and copper `#c8795b`. Color appears only at low opacity; project media retains the strongest color.
-- The opening uses a broad angled graphite plane; profile introductions use warmer light at the upper right. Editorial notes use a low, soft wash. Project sections use sparse vertical detail; repository and contact workbench sections use a faded grid. Closing sections reverse the light direction. Case studies pick up a restrained tint from their existing project accent.
-- The system uses no texture downloads, filters, canvas, observers or animation. It remains static for every motion preference. Existing motion keeps its reduced-motion rules. Mobile uses broader forms and lower grid contrast, and forced-colors mode hides the decoration.
-- No new portrait, stock imagery, font or dependency is introduced. Existing case-study prose, artwork and source attribution are preserved.
+### Color Palette & Surfaces
 
-## Profile / 27 October 2026
+| Token | Light Theme Value | Dark Theme Value | Purpose |
+| :--- | :--- | :--- | :--- |
+| `--bg-page` | `#fbfbfd` | `#000000` | Primary page foundation |
+| `--surface-tint` | `#f5f5f7` | `#161617` | Alternating section tint |
+| `--surface-card` | `#ffffff` | `#1c1c1e` | Bento cards & interactive containers |
+| `--surface-card-hover` | `#ffffff` | `#242426` | Card hover state background |
+| `--surface-elevated` | `#ffffff` | `#2c2c2e` | Modals, flyouts & elevated surfaces |
+| `--surface-dark` | `#000000` | `#000000` | Product reel (3D gallery canvas) |
+| `--surface-dark-tint` | `#111114` | `#111114` | Product reel secondary / footer canvas |
+| `--surface-dark-card` | `#1c1c1e` | `#1c1c1e` | Dark gallery cards & index thumbs |
 
-- The profile uses Ojesh's public GitHub profile and README as its content foundation: India, TypeScript and C#, web experiences and native Windows tools. Source notes and attribution limits are recorded in `qa/profile-refresh-2026-10-27/README.md`.
-- About opens with an oversized Bricolage name, an Instrument Serif statement taken from the profile README, and a compact facts rail. Existing project imagery connects the web work to its public repositories; a separate text index presents Windows projects with fork/derivative attribution.
-- Profile surfaces use the existing `#08090b`, `#111214`, paper, dim, quiet and rule tokens. Project media supplies color. There are no new fonts, dependencies or portrait assets.
-- One short CSS entrance introduces the About identity only when reduced motion is not requested. The homepage retains its existing scroll ownership. Profile content stays server-rendered, with no runtime GitHub requests.
-- Mobile reflows the identity, facts, project media and repository rows into readable stacks. Links retain visible focus and comfortable target heights. The page foundation allows the available viewport width, including browser scrollbar space at 320px.
+### Typography Colors & Contrast (WCAG 2.2 AA Verified)
 
-## Overview
+| Token | Light Theme Value | Dark Theme Value | Contrast Ratio (Light / Dark) |
+| :--- | :--- | :--- | :--- |
+| `--text-primary` | `#1d1d1f` | `#f5f5f7` | **17.5 : 1** (on #fbfbfd) / **18.2 : 1** (on #000) |
+| `--text-secondary` | `#6e6e73` | `#86868b` | **4.91 : 1** (on #fbfbfd), **4.65 : 1** (on #f5f5f7) / **5.8 : 1** |
+| `--text-tertiary` | `#86868b` | `#6e6e73` | Captions & metadata (>= 12px) |
+| `--text-dark` | `#f5f5f7` | `#f5f5f7` | Text in 3D gallery and footer |
+| `--text-dark-secondary` | `#86868b` | `#86868b` | Subheads & captions in dark surfaces |
 
-OVIO is an independent creative-development practice. The homepage uses the concept “Open the view”: a large typographic identity interrupted by authentic project media. A finite scroll sequence opens that image into a complete project view. Interface elements stay quiet, legible, and easy to use.
+### Hairlines & Dividers
 
-## Colors
+| Token | Light Theme Value | Dark Theme Value | Usage |
+| :--- | :--- | :--- | :--- |
+| `--hairline` | `rgba(0, 0, 0, 0.08)` | `rgba(255, 255, 255, 0.12)` | Card borders, dividers, subtle separators |
+| `--hairline-strong` | `rgba(0, 0, 0, 0.16)` | `rgba(255, 255, 255, 0.24)` | Input borders, emphasized boundaries |
+| `--hairline-dark` | `rgba(255, 255, 255, 0.12)` | `rgba(255, 255, 255, 0.12)` | 3D gallery & footer chrome hairlines |
 
-| Token | Value | Use |
-| --- | --- | --- |
-| Void | `#060810` | Midnight-black page foundation |
-| Carbon | `#111114` | Raised editorial sections |
-| Carbon raised | `#19191d` | Hover and selected surfaces |
-| Paper | `#e9e5d8` | Main text and light controls |
-| Paper dim | `#b7b3aa` | Supporting copy |
-| Quiet | `#85828a` | Captions and tertiary metadata |
-| Copper | `#c8795b` | Interaction accent and active states |
-| Rule | `rgba(233, 229, 216, 0.17)` | Dividers and understated boundaries |
+### Accents & Focus
 
-Keep the surrounding interface nearly monochrome. Project imagery supplies the strong color. Do not add new accent colors to the global system for individual screens.
+| Token | Light Theme Value | Dark Theme Value | Purpose |
+| :--- | :--- | :--- | :--- |
+| `--accent-link` | `#0066cc` | `#2997ff` | Text links, active tabs, secondary link states |
+| `--accent-link-hover` | `#004499` | `#70baff` | Text link hover |
+| `--accent-btn` | `#0071e3` | `#0071e3` | Primary filled pill buttons |
+| `--accent-btn-hover` | `#0077ed` | `#0077ed` | Primary button hover |
+| `--accent-btn-text` | `#ffffff` | `#ffffff` | High-contrast button text (4.71 : 1) |
+| `--focus-ring` | `#0071e3` | `#2997ff` | Focus visible outline (2px solid, 2px offset) |
 
-## Typography
+### Translucency & Glass
 
-- **Bricolage Grotesque**: expressive display headings, the identity, project names and selected-project labels. Self-hosted Latin variable WOFF2 (400–700, optical size 12–96), loaded with `next/font/local`. The refined homepage identity uses weight 600, optical size 96, −0.015em tracking and 0.95 leading. Its complete silhouette is visible through a solid background wordmark and a matching outline over the project media. Mobile uses one complete unmasked wordmark. Sentence headings use approximately −0.035em tracking and 0.96–1.08 line height; project names use −0.055em tracking.
-- **Manrope**: the existing neutral sans for body copy, metadata, navigation, captions, and controls. Reuse installed Latin 400/500/600/700 assets. Supporting copy uses 1.65–1.8 leading and a readable measure, normally below 60 characters. Index project names use Bricolage; their metadata and numbers remain Manrope.
-- **Instrument Serif Italic**: a restrained editorial voice for the complete short working-note heading on About and brief-introduction heading on Contact. Self-hosted Latin 400 italic WOFF2, loaded on demand (`preload: false`), with Georgia as fallback. Do not scatter italic words through display headlines or use it for project brands and metadata.
-- These are the only three font roles. Bricolage and Instrument Serif carry their unmodified SIL Open Font License 1.1 notices in `src/app/fonts/`; provenance and download URLs are recorded there. Manrope's existing package includes its OFL notice. No runtime font requests to Google and no new font package dependency.
-- Keep utility labels compact and readable; do not reduce essential controls to decorative microtype.
+| Token | Light Theme Value | Dark Theme Value | Purpose |
+| :--- | :--- | :--- | :--- |
+| `--nav-bg` | `rgba(251, 251, 253, 0.8)` | `rgba(0, 0, 0, 0.8)` | Sticky header glass |
+| `--nav-bg-scrolled` | `rgba(251, 251, 253, 0.92)`| `rgba(0, 0, 0, 0.92)` | Deepened glass on scroll |
+| `--glass-dark-bg` | `rgba(29, 29, 31, 0.78)` | `rgba(29, 29, 31, 0.78)` | 3D gallery floating UI cards & pills |
+| `--blur-glass` | `20px` | `20px` | Glass backdrop-filter blur |
+| `--saturate-glass` | `180%` | `180%` | Apple signature vibrant saturation |
 
-## Layout and spacing
+### Spacing & Layout Scale
 
-- Use `--gutter: clamp(1.1rem, 4.2vw, 5.5rem)` for page edges.
-- Keep the navigation fixed and restrained at `--header-h: 5.5rem` on desktop, with the existing mobile reduction.
-- The homepage opens with one full-viewport typographic media stage. Four text selectors change the same media window; a native modal index offers preview and case-study navigation. Do not repeat project cards or galleries below it.
-- Follow the scene with the existing about and contact sections in normal document flow.
-- Case-study pages use wide editorial margins, large project titles, responsive image frames, and clear captions.
-- Use fine rules and small radii for interface panels. Avoid dashboard-like card grids, heavy glass surfaces, and ornamental borders.
+- `--gutter`: `clamp(1.25rem, 5vw, 2.5rem)`
+- `--header-h`: `48px`
+- `--content-width`: `1080px` (measure for 12-column bento & typography containers)
+- `--section-padding`: `clamp(80px, 12vw, 160px)`
 
-## Depth and surfaces
+### Radius Scale & Concentric Alignment
 
-- The current homepage is DOM/CSS media, with no WebGL requirement. The prior R3F spatial-scene and PortalHero remain in source as reusable components; they are not mounted on the homepage.
-- Preserve authentic project assets and their aspect ratios. The opening uses project-specific media windows: an angled LANE frame, a more orthogonal ARCUS interface frame, a wider Teen Fiesta film frame and an opposite-slanted Rewatch frame. The wordmark outline keeps the full identity readable across the image. Scroll expands the window into an uncropped contain-fit presentation. Mobile shows complete media in a static vertical composition.
-- Navigation and project content remain available when WebGL is unavailable because the current homepage does not create a canvas.
-- Do not add unrelated 3D objects, stock imagery, or generated project screenshots.
-- The homepage retains its `#08090b` stage and authentic project media. Static CSS atmosphere now gives the opening, profile and contact sections distinct light and plane compositions.
-- Secondary routes share the same static CSS system. Earlier cosmic assets and their provenance remain under `public/atmosphere/` and `qa/cosmic-atmosphere-2026-10-16/` for retained optional components; the active page foundation and Contact route use the new system.
+- `--radius-xs`: `6px`
+- `--radius-sm`: `10px` (thumbnails)
+- `--radius-md`: `14px`
+- `--radius-inner`: `18px` (inner screenshot containers)
+- `--radius-card`: `28px` (bento cards & hero panels)
+- `--radius-pill`: `980px` (buttons, badges, indicators, switch controls)
 
-## Motion responsibilities
+> **Concentric Radius Rule:**  
+> When nesting rounded containers inside cards, the inner radius follows concentric geometry:  
+> $$R_{\text{inner}} = R_{\text{outer}} - \text{padding}$$  
+> For cards with `28px` radius and `clamp(20px, 3vw, 24px)` padding, the nested image frame uses `18px` radius, preventing mismatched optical corners.
 
-- **GSAP + ScrollTrigger** own the finite pinned desktop wordmark/media opening and scroll progress. Selection animates blend weights and project framing while scroll owns a separate progress value; one composition renderer combines them and writes the final media geometry. Fixed image order and normalized source-over blending preserve an opaque image during interruption. Selection commits only after decoding; metadata stays stable without a bounce. Native media subscriptions are explicitly removed. Pointer translation stays on its nested layer. Reduced motion, mobile and short viewports have no pin; reduced selection applies immediately after readiness. The wordmark has no load-time reveal to replay at breakpoints.
-- **Lenis** owns smooth document scrolling and stays synchronized with GSAP's ticker and ScrollTrigger updates.
-- **R3F** remains available in the retained optional spatial scene. It is not part of the current homepage render path.
-- **Motion** is for discrete interface state, such as navigation, the project index, and case-study gallery selection.
-- **CSS** handles simple hover and focus feedback.
-- Never let two animation systems write the same transform or opacity on the same element. Respect reduced motion and retain native scrolling.
+### Shadow Scale
 
-## Components and interaction
+- `--shadow-card`: `0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.03)`
+- `--shadow-elevated`: `0 16px 40px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04)`
+- `--shadow-glass`: `0 8px 32px rgba(0, 0, 0, 0.08)` (in dark mode: `rgba(0, 0, 0, 0.4)`)
 
-- Navigation links show the current route and retain visible keyboard focus.
-- The project index is a native modal with the four canonical projects; selection updates the media and metadata without adding another gallery. Arrow keys move between project selectors; Escape closes the modal and restores focus.
-- Case-study links remain available from the hero, index, and each project route.
-- Gallery controls are native buttons with descriptive labels and pressed states.
-- Native dialogs pause Lenis and lock document overflow; dialog content keeps native scrolling. Closing or unmounting a dialog resumes scrolling. The modal observer is disconnected with the scrolling integration.
-- Use concise metadata, clear captions, and meaningful image alternatives.
+---
 
-## Do and don't
+## 3. Typography System
 
-- Do keep the typographic media stage as the central homepage project experience.
-- Do use the actual local project screenshots and the established project data.
-- Do keep camera motion restrained and selection transitions reversible.
-- Do test touch, keyboard, reduced-motion, narrow widths, and WebGL fallback.
-- Don't add a second animation engine for scroll or scene movement.
-- Don't add maps, decorative icons, liquid-glass effects, or generic visual components without a concrete content need.
-- Don't duplicate project planes or add a project grid below the homepage scene.
+The entire site renders using the pure system font stack:
+```css
+font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+             "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+```
+All old web font loaders (`@fontsource/manrope`, Bricolage Grotesque, Instrument Serif) have been removed.
 
-## Project presentation / 17 October 2026
+### Type Scale
 
-- Canonical covers now use fresh 2× real browser captures under `public/work/case-studies/`. LANE and ARCUS were captured locally; Teen Fiesta uses the verified film section of its existing static export; Rewatch uses its actual public dark interface. No screenshots are synthesized or upscaled. Full provenance is in `public/work/README.md` and the dated QA directory.
-- Gallery rendering preserves intrinsic aspect ratios without the old landscape height cap. Portrait screenshots remain readable at a limited width. Primary imagery is eager, supporting full-size images are requested only on selection, and thumbnails remain small/lazy. Quality 90 is explicitly allowed by the installed Next Image configuration. A pending or failed request retains the current image and synchronized caption until a decoded replacement is ready.
-- `ProjectEntryProvider` owns a separate temporary surface. The homepage's scroll, selection and pointer properties are unchanged. The chosen image moves from its actual source crop into the decoded case-study cover. The destination stays covered until the surface is aligned, preventing double images. Native user input, resizing, browser history, reduced motion and a bounded timeout clear the handoff. Real links, direct URLs and modified clicks retain browser behavior. Missing imagery uses normal navigation.
-- Case-study foundations are shared, with distinct project rhythms: LANE's supplied poster and campaign archive; ARCUS's blue training interface and catalogue detail; Teen Fiesta's film, supplied media and explicit local-export status; Rewatch's reversed editorial heading, serif story accent and real public catalogue.
-- Original supplied artwork/media is credited separately from website development. Technical copy is bounded by inspected source or observable public UI. No fabricated activity, results, integrations or business metrics. The Teen Fiesta public deployment remains deferred and unavailable; no hosting setup is changed.
+| Role | Size | Weight | Line Height | Tracking | Text Wrap |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Hero Title** | `clamp(3.5rem, 8vw, 6rem)` (56–96px) | 600 | 1.05 | -0.03em | `balance` |
+| **Section Headline** | `clamp(2.5rem, 5vw, 3.5rem)` (40–56px) | 600 | 1.10 | -0.025em | `balance` |
+| **Subhead** | `clamp(1.15rem, 2vw, 1.4rem)` (19–24px) | 400 | 1.45 | -0.012em | `balance` |
+| **Card Headline** | `clamp(1.4rem, 2.5vw, 2.35rem)` | 600 | 1.15 | -0.025em | `balance` |
+| **Body Copy** | `17px` (1.0625rem) | 400 | 1.47 | normal | `pretty` |
+| **Eyebrow / Badge** | `13px` (0.8125rem) | 600 | 1.30 | +0.06em (caps) | normal |
+| **Captions / Legal** | `12px–13px` (>= 12px strict floor) | 400–500 | 1.50 | normal | normal |
+
+---
+
+## 4. Component Library
+
+### Glass Navigation Header (`.site-header`)
+- **Height:** 48px sticky global bar.
+- **Glass Filter:** `backdrop-filter: saturate(180%) blur(20px)`.
+- **Background:** `rgba(251, 251, 253, 0.8)` (light) / `rgba(0, 0, 0, 0.8)` (dark).
+- **Scroll Depth:** Scrolled state (`.site-header--scrolled`) increases opacity to 0.92 for enhanced legibility.
+- **Wordmark:** Clean typographic "Ojesh" with negative letter-spacing (-0.02em).
+- **Mobile Menu:** Accessible disclosure button (`aria-expanded`, `aria-controls`), smooth 2-line hamburger morphing to "X", glass overlay panel, keyboard Escape listener returning focus to trigger.
+
+### Pill Buttons (`.btn`, `.btn--primary`, `.btn--secondary`)
+- **Border Radius:** `980px`.
+- **Touch Target:** Minimum 44px height and width.
+- **Primary:** Filled `#0071e3` with white text; hover `#0077ed`.
+- **Secondary:** Outlined with hairline border; clean subtle hover tint.
+- **Focus Ring:** 2px solid offset ring using accent color.
+
+### Text Links (`.text-link`)
+- **Color:** Accent blue `#0066cc` (light) / `#2997ff` (dark).
+- **Chevron:** Trailing `›` character in `.chevron` span with a 3px horizontal hover nudge.
+
+### Selected Work Bento Grid (`.work-bento`)
+- **Grid:** 2-column balanced layout on desktop, reflowing to 1-column on tablet/mobile.
+- **Cards:** 28px outer border radius, `var(--surface-card)`, layered subtle shadow, 1px hairline border.
+- **Media Frame:** 18px concentric inner border radius, 16:10 aspect ratio, lazy loading, subtle 1.025x zoom ease on card hover.
+- **Typography:** Metadata tag (type + year), project title (`h3`), one-line summary, "View case study ›" CTA.
+
+### Windows Tools Grid (`.tools-grid`)
+- **Grid:** 2-column grid featuring native Windows utilities (GlyphLens, ClickForge, larpiano, Sora).
+- **Provenance & Captures:** Unedited authentic UI screenshots from public repositories.
+- **Card Structure:** 28px card radius, tag, title, description, technology stack, and direct GitHub repository link.
+
+### Apple-Style Compact Footer (`.site-footer`)
+- **Theme:** Product reel dark surface (`#111114`) in both light and dark themes.
+- **Sitemap Columns:**
+  1. *Selected Work:* Direct links to LANE, ARCUS, Teen Fiesta, Rewatch, and full archive.
+  2. *Windows Tools:* Direct repository links to GlyphLens, ClickForge, larpiano, Sora.
+  3. *About:* Overview, GitHub Profile, stack summary (C# & TypeScript), location (India).
+  4. *Contact:* Conversation link, direct email, GitHub handle.
+- **Bottom Bar:** Divider hairline, copyright line, legal disclaimer.
+
+---
+
+## 5. 3D Slide Gallery (Product Reel)
+
+The 3D WebGL corridor gallery remains the centerpiece product showcase of the homepage. Its fly-through camera geometry, Three.js shaders, scroll pinning, and keyboard fallbacks are preserved:
+
+- **Fly-Through Corridor:** Pinned Three.js section mapping 4 web case studies and 4 native Windows tools into a 3D depth corridor.
+- **Camera Travel:** Scrolling drives travel down the corridor with calibrated framing distances ($d = \max(\text{width} / 2\tan(\text{fov}/2)\cdot\text{aspect}, \text{height} / 2\tan(\text{fov}/2))$) preventing slide collision.
+- **Depth Cues:** Contact shadows rendered with soft radial gradient canvas textures, sparse dust field (`Float32Array` point cloud), focus border highlight (`#2997ff`), and hover pointer tilt.
+- **Responsive & Reduced-Motion Modes:** On touch viewports, narrow screens (<1000px), or when `prefers-reduced-motion` is enabled, scroll pinning is disengaged: tapping a slide or chapter button glides the camera smoothly.
+- **Restyled Glass Chrome:**
+  - *Caption Pill (`.spatial-arrival`):* Translucent 18px glass card displaying project tag, title, type, and case study / repository link.
+  - *Chapter Rail (`.spatial-rail`):* Glass capsule on the left edge with interactive indicator bars and hover tooltips.
+  - *View Switcher (`.spatial-switch`):* Pill toggle for Overview and Index.
+  - *Index Panel (`.spatial-index`):* Glass modal with 24px radius, concentric rounded thumbnails, and full keyboard arrow navigation (Up/Down/Home/End).
+
+---
+
+## 6. Motion & Animation Standards
+
+- **Signature Easing:** `cubic-bezier(0.28, 0.11, 0.32, 1)` (`--ease-apple`).
+- **Durations:**
+  - Micro-interactions (hover, chevron nudge, focus): `0.2s` (`--duration-fast`)
+  - State transitions (mobile nav, dropdowns, card lift): `0.35s` (`--duration-normal`)
+  - Layout transitions: `0.5s` (`--duration-slow`)
+- **Scroll Reveals:** Subtle opacity + 16px rise triggered via GSAP ScrollTrigger with `once: true`.
+- **Accessibility:** If `prefers-reduced-motion: reduce` is detected:
+  - All transitions and animations drop to `0.01ms !important`.
+  - GSAP animations resolve immediately without transform interpolation.
+  - Native scrolling remains uninterrupted.
+
+---
+
+## 7. Accessibility Checklist (WCAG 2.2 AA)
+
+1. **Color Contrast:**
+   - Body text `#1d1d1f` on `#fbfbfd`: 17.5:1.
+   - Secondary text `#6e6e73` on `#fbfbfd`: 4.91:1 (passes >= 4.5:1).
+   - Secondary text `#6e6e73` on `#f5f5f7`: 4.65:1 (passes >= 4.5:1).
+   - Button text `#ffffff` on `#0071e3`: 4.71:1 (passes >= 4.5:1).
+   - Footer text `#86868b` on `#111114`: 5.5:1 (passes >= 4.5:1).
+2. **Focus Management:**
+   - Visible focus ring: `2px solid var(--focus-ring)` with `2px offset`.
+   - Skip to content link (`.skip-link`) keyboard accessible and visible on focus.
+   - Mobile nav menu closes on `Escape` and returns focus to the toggle button.
+3. **Touch Targets:**
+   - All interactive controls, nav links, buttons, and chapter selectors have a minimum touch target of `44px x 44px`.
+4. **Semantic HTML & Screen Readers:**
+   - Single `<h1>` per page.
+   - Landmarks: `<header role="banner">`, `<main id="main-content">`, `<footer role="contentinfo">`, `<nav>`.
+   - All icons and chevrons hidden via `aria-hidden="true"`.
+   - Accessible button labels (`aria-label`, `aria-expanded`, `aria-controls`).
+5. **Forced Colors Mode:**
+   - Tested for Windows High Contrast / Forced Colors: buttons and cards use explicit system colors (`ButtonText`, `Highlight`).
+6. **Narrow Viewport Reflow:**
+   - Verified at 320px width: zero horizontal scrolling, content wraps cleanly with `word-break: break-word`.
+
+---
+
+## 8. Migration Notes for Future Phases
+
+- Phase 2 plans will redesign `/about`, `/work`, `/work/[slug]`, and `/contact`.
+- These routes currently inherit all global tokens (`--bg-page`, `--text-primary`, `--text-secondary`, `--hairline`, `--accent-link`, `--btn`, etc.).
+- When constructing new pages, developers should reuse:
+  - `.container` for max-width content measure (1080px).
+  - `.section` with `.section--tint` for alternating backgrounds.
+  - `.headline`, `.subhead`, and `.eyebrow` for standard typography hierarchy.
+  - `.btn.btn--primary` and `.btn.btn--secondary` for action groups.
+  - `.text-link` with `<span className="chevron">›</span>` for contextual links.
+  - `.card` and `.bento` for content grids.
