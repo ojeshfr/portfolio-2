@@ -157,7 +157,7 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
         {items.map((entry, i) => <button key={entry.id} type="button" data-label={`${pad(i + 1)} ${entry.title}`}
           aria-label={`Go to ${entry.title}`} aria-current={active === i} onClick={() => focus(i)}><span /></button>)}
       </nav>
-      <div className={"spatial-focus" + (item ? " is-hidden" : "")} aria-live="polite" aria-atomic="true">
+      <div className={"spatial-focus" + (item ? " is-hidden" : "")}>
         <p>Selected digital work<span>{driven ? "Scroll to fly through, or open the index." : "Tap a slide or open the index."}</span></p>
       </div>
       <div className="spatial-footer">
@@ -185,7 +185,32 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
         >
           <div className="spatial-index__head"><span>Selected work / {pad(count)}</span><button aria-label="Close project index" type="button" onClick={() => { setIndexOpen(false); toggle.current?.focus(); }}>×</button></div>
           {items.map((entry, i) => <div className="spatial-index__row" key={entry.id}>
-            <button className="spatial-index__select" type="button" aria-pressed={active === i} onClick={() => focus(i)}>
+            <button
+              className="spatial-index__select"
+              type="button"
+              aria-pressed={active === i}
+              onClick={() => focus(i)}
+              onKeyDown={(event) => {
+                if (event.altKey || event.ctrlKey || event.metaKey) return;
+                const rows = panel.current?.querySelectorAll<HTMLButtonElement>(".spatial-index__select");
+                if (!rows || rows.length === 0) return;
+                if (event.key === "ArrowDown") {
+                  event.preventDefault();
+                  const next = (i + 1) % count;
+                  rows[next]?.focus();
+                } else if (event.key === "ArrowUp") {
+                  event.preventDefault();
+                  const prev = (i - 1 + count) % count;
+                  rows[prev]?.focus();
+                } else if (event.key === "Home") {
+                  event.preventDefault();
+                  rows[0]?.focus();
+                } else if (event.key === "End") {
+                  event.preventDefault();
+                  rows[count - 1]?.focus();
+                }
+              }}
+            >
               <span className="spatial-index__thumb" aria-hidden="true">
                 <Image alt="" fill loading="lazy" sizes="72px" src={entry.image.src} />
               </span>

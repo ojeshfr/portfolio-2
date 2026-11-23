@@ -164,6 +164,28 @@ export function ProjectGallery({ project, lead = false }: { project: Project; le
             className={`case-gallery__choice${activeIndex === index ? " is-selected" : ""}`}
             key={item.src}
             onClick={() => selectImage(index)}
+            onKeyDown={(event) => {
+              if (event.altKey || event.ctrlKey || event.metaKey) return;
+              if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+                event.preventDefault();
+                const next = (index + 1) % imageCount;
+                selectImage(next);
+                (event.currentTarget.parentElement?.children[next] as HTMLButtonElement)?.focus();
+              } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                event.preventDefault();
+                const prev = (index - 1 + imageCount) % imageCount;
+                selectImage(prev);
+                (event.currentTarget.parentElement?.children[prev] as HTMLButtonElement)?.focus();
+              } else if (event.key === "Home") {
+                event.preventDefault();
+                selectImage(0);
+                (event.currentTarget.parentElement?.children[0] as HTMLButtonElement)?.focus();
+              } else if (event.key === "End") {
+                event.preventDefault();
+                selectImage(imageCount - 1);
+                (event.currentTarget.parentElement?.children[imageCount - 1] as HTMLButtonElement)?.focus();
+              }
+            }}
             type="button"
           >
             <GalleryThumbnail image={item} />

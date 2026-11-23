@@ -89,3 +89,8 @@
   .cue { display: none; }
   .rail button::before, .mediaHint { transition: none; }
 }
+@media (forced-colors: active) {
+  .rail button[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+  }
+}

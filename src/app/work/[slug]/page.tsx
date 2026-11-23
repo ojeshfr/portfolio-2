@@ -81,6 +81,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
               href={project.liveUrl}
               rel="noreferrer"
               target="_blank"
+              aria-label={`Visit live ${project.title} project`}
             >
               Visit the project <span aria-hidden="true">↗</span>
             </a>
@@ -92,7 +93,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
       <CaseNarrative project={project} study={study} />
       {project.repository ? (
         <aside className={profileStyles.repository} aria-label={`${project.title} public source`}>
-          <a className={profileStyles.textLink} href={project.repository.url} rel="noreferrer" target="_blank">Explore the GitHub repository <span aria-hidden="true">↗</span></a>
+          <a className={profileStyles.textLink} href={project.repository.url} rel="noreferrer" target="_blank" aria-label={`Explore ${project.title} on GitHub`}>Explore the GitHub repository <span aria-hidden="true">↗</span></a>
           <p>{project.repository.note}</p>
         </aside>
       ) : null}

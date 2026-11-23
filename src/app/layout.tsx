@@ -72,7 +72,7 @@ export default function RootLayout({
         <ProjectEntryProvider>
         <SmoothScroll />
         <SiteHeader />
-        <main id="main-content">{children}</main>
+        <main id="main-content" tabIndex={-1}>{children}</main>
         <SiteFooter />
         <ScrollReveals />
         </ProjectEntryProvider>

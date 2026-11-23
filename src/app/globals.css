@@ -59,9 +59,17 @@ h1, h2, h3 { font-optical-sizing: auto; }
   position: fixed; z-index: 200; top: .75rem; left: .75rem;
   padding: .7rem 1rem; transform: translateY(-180%);
   background: var(--paper); color: var(--void);
+  font-size: .875rem; font-weight: 500;
+  border-radius: 4px;
+  transition: transform .2s ease;
 }
-.skip-link:focus { transform: translateY(0); }
+.skip-link:focus, .skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+}
 main { min-height: 65vh; }
+main:focus { outline: none; }
 .page-work, .page-intro--work, .contact-workbench, .contact-details, .site-footer { position: relative; isolation: isolate; }
 
 .site-header {
@@ -160,6 +168,8 @@ main { min-height: 65vh; }
 .spatial-index__row > a:hover { transform: translate(2px, -2px); color: var(--copper); }
 .spatial-scroll span { margin-right: .7rem; font-size: .75rem; }
 .spatial-scroll { position: absolute; z-index: 4; bottom: 2.5rem; left: 50%; padding: .5rem; font-size: .8rem; color: var(--quiet); }
+.spatial-index__select:focus-visible { outline-offset: 2px; }
+.spatial-index__head button:focus-visible { outline-offset: 2px; border-radius: 4px; }
 .spatial-fallback { position: absolute; inset: 0; perspective: 1000px; }
 .spatial-fallback.is-hidden { visibility: hidden; }
 .spatial-fallback a { position: absolute; width: 43vw; aspect-ratio: var(--aspect); left: calc(-5% + var(--plane) * 23%); bottom: calc(-3% + var(--plane) * 18%); transform: rotateY(-25deg) rotateZ(-9deg) translateZ(calc(var(--plane) * -40px)); border: 1px solid #ffffff25; }
@@ -248,9 +258,11 @@ main { min-height: 65vh; }
 .case-gallery__navigation > span { margin-right: .45rem; color: var(--paper-dim); font-variant-numeric: tabular-nums; }
 .case-gallery__navigation button { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid var(--rule); border-radius: 50%; background: transparent; color: var(--paper); transition: color .2s ease, background .2s ease, border-color .2s ease; }
 .case-gallery__navigation button:hover { border-color: var(--paper); background: var(--paper); color: var(--void); }
+.case-gallery__navigation button:focus-visible { outline: 2px solid var(--copper); outline-offset: 3px; }
 .case-gallery__choices { display: flex; gap: .55rem; max-width: 100%; margin-top: .75rem; overflow-x: auto; padding-bottom: .35rem; scrollbar-width: thin; }
 .case-gallery__choice { display: grid; grid-template-columns: 5.6rem minmax(0, 1fr); align-items: center; gap: .7rem; flex: 0 0 min(18rem, 48%); min-height: 4.55rem; padding: .35rem .55rem .35rem .35rem; border: 1px solid var(--rule); background: transparent; color: var(--paper-dim); text-align: left; transition: border-color .2s ease, background .2s ease, color .2s ease; }
 .case-gallery__choice:hover, .case-gallery__choice.is-selected { border-color: var(--copper); background: #171517; color: var(--paper); }
+.case-gallery__choice:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
 .case-gallery__thumbnail { position: relative; display: block; width: 5.6rem; aspect-ratio: 1.55; overflow: hidden; background: var(--carbon-raised); }
 .case-gallery__thumbnail img { object-fit: cover; }
 .case-gallery__choice-copy { display: grid; gap: .22rem; min-width: 0; }
@@ -445,4 +457,27 @@ body:has(.page-home) .site-footer { padding-top: 1rem; }
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-field::before { animation: none !important; transform: none !important; }
+}
+
+@media (forced-colors: active) {
+  button:focus-visible, a:focus-visible, :focus-visible {
+    outline: 2px solid Highlight;
+  }
+  .skip-link:focus, .skip-link:focus-visible {
+    outline: 2px solid Highlight;
+  }
+  .contact-composer__field input:focus-visible,
+  .contact-composer__field textarea:focus-visible {
+    outline: 2px solid Highlight;
+  }
+  .spatial-rail button[aria-current="true"] > span {
+    background: Highlight;
+  }
+  .spatial-switch button[aria-expanded="true"],
+  .spatial-switch button[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+  }
+  .case-gallery__choice.is-selected {
+    outline: 2px solid Highlight;
+  }
 }
