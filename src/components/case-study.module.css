@@ -1,4 +1,4 @@
-.page { --project-accent: #cf6852; position: relative; isolation: isolate; padding: calc(var(--header-h) + 1rem) var(--gutter) 6rem; background: #08090b; }
+.page { --project-accent: #0066cc; position: relative; isolation: isolate; padding: calc(var(--header-h) + 1rem) var(--gutter) 6rem; background: var(--bg-page); }
 .page[data-project="arcus"] { --project-accent: #79a9ff; }
 .page[data-project="teen-fiesta"] { --project-accent: #e16b76; }
 .page[data-project="rewatch"] { --project-accent: #ef9164; }
@@ -23,7 +23,7 @@
 .page[data-project="rewatch"] .opening > div:first-child { grid-column: 2; grid-row: 1; text-align: right; }
 .page[data-project="rewatch"] .description { grid-column: 1; grid-row: 1; justify-self: start; }
 .page :global(.case-gallery--lead) { margin: 0; }
-.page :global(.case-gallery__image) { width: 100%; max-height: none; border: 0; background: #08090b; }
+.page :global(.case-gallery__image) { width: 100%; max-height: none; border-radius: var(--radius-inner); border: 1px solid var(--hairline); background: var(--surface-tint); }
 .page :global(.case-gallery__caption) { font-size: .75rem; padding: 1rem 0; }
 .page :global(.case-gallery__image[data-portrait="true"]) { width: min(100%, 25rem); margin-inline: auto; }
 .page :global(.case-gallery__choices) { margin-top: 1.2rem; padding-bottom: .6rem; }
@@ -44,7 +44,7 @@
 .decisions p, .evidence p { max-width: 58ch; margin: 0; font-size: .875rem; line-height: 1.8; color: var(--paper-dim); }
 .page[data-project="lane"] .decisions { grid-template-columns: 1.2fr .9fr .9fr; }
 .page[data-project="arcus"] .storyLead { grid-template-columns: 1fr 1fr; }
-.page[data-project="arcus"] .storyLead h2 { color: #dbe6ff; }
+.page[data-project="arcus"] .storyLead h2 { color: var(--text-primary); }
 .page[data-project="teen-fiesta"] .decisions { display: block; max-width: 65rem; margin-left: auto; }
 .page[data-project="teen-fiesta"] .decisions > section { display: grid; grid-template-columns: .8fr 1.2fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--rule); }
 .page[data-project="rewatch"] .storyLead h2 { font-family: var(--serif); font-style: italic; font-size: clamp(3rem, 6vw, 6rem); font-weight: 400; }

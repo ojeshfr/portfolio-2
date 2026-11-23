@@ -1,8 +1,3 @@
-import "@fontsource/manrope/latin-400.css";
-import "@fontsource/manrope/latin-500.css";
-import "@fontsource/manrope/latin-600.css";
-import "@fontsource/manrope/latin-700.css";
-import localFont from "next/font/local";
 import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -12,25 +7,6 @@ import { ProjectEntryProvider } from "@/components/project-entry";
 import { structuredData } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
-
-const display = localFont({
-  src: "./fonts/bricolage-grotesque-latin.woff2",
-  variable: "--font-display",
-  weight: "400 700",
-  display: "swap",
-  fallback: ["Arial"],
-});
-
-const editorial = localFont({
-  src: "./fonts/instrument-serif-latin-italic.woff2",
-  variable: "--font-editorial",
-  weight: "400",
-  style: "italic",
-  display: "swap",
-  preload: false,
-  adjustFontFallback: "Times New Roman",
-  fallback: ["Georgia"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.origin),
@@ -56,25 +32,28 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08090b",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfbfd" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${editorial.variable}`}>
+    <html lang="en">
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: structuredData() }} />
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
         <ProjectEntryProvider>
-        <SmoothScroll />
-        <SiteHeader />
-        <main id="main-content" tabIndex={-1}>{children}</main>
-        <SiteFooter />
-        <ScrollReveals />
+          <SmoothScroll />
+          <SiteHeader />
+          <main id="main-content" tabIndex={-1}>{children}</main>
+          <SiteFooter />
+          <ScrollReveals />
         </ProjectEntryProvider>
       </body>
     </html>

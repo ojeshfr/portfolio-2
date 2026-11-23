@@ -6,9 +6,9 @@
   overflow: clip;
   pointer-events: none;
   contain: paint;
-  --field-warm: rgb(200 121 91 / .1);
-  --field-cool: rgb(46 58 77 / .25);
-  --field-line: rgb(233 229 216 / .045);
+  --field-warm: transparent;
+  --field-cool: transparent;
+  --field-line: transparent;
 }
 .light, .plane, .mesh { position: absolute; display: block; }
 .light {
