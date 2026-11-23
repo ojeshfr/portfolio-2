@@ -15,18 +15,22 @@ export function ScrollReveals() {
 
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>("[data-scroll-reveal]").forEach((element) => {
+      const elements = gsap.utils.toArray<HTMLElement>("[data-scroll-reveal]");
+      if (elements.length === 0) return;
+
+      elements.forEach((element) => {
         gsap.fromTo(
           element,
-          { clipPath: "inset(0 100% 0 0)" },
+          { opacity: 0, y: 16 },
           {
-            clipPath: "inset(0 0% 0 0)",
-            ease: "none",
+            opacity: 1,
+            y: 0,
+            duration: 0.55,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: element,
-              start: "top 88%",
-              end: "top 48%",
-              scrub: 0.45,
+              start: "top 90%",
+              once: true,
             },
           },
         );

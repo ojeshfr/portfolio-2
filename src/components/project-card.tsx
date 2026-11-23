@@ -1,35 +1,47 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CardTilt3D } from "@/components/card-tilt-3d";
 import type { Project } from "@/lib/projects";
+import styles from "./project-card.module.css";
 
-export function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
+export function ProjectCard({
+  project,
+  index = 0,
+}: {
+  project: Project;
+  index?: number;
+}) {
   return (
-    <article className="project-card" data-project={project.slug}>
-      <Link
-        aria-label={"Open " + project.title + " case study"}
-        className="project-card__image"
-        data-scroll-reveal
-        href={"/work/" + project.slug}
-      >
-        <Image
-          alt={project.cover.alt}
-          fill
-          loading={index === 0 ? "eager" : "lazy"}
-          sizes="(max-width: 760px) 100vw, 92vw"
-          src={project.cover.src}
-        />
-        <div aria-hidden="true" className="project-card__overlay">
-          <span className="project-card__index">{String(index + 1).padStart(2, "0")} / {project.year}</span>
-          <div className="project-card__meta">
-            <div>
-              <p className="eyebrow">{project.type}</p>
-              <h2>{project.title}</h2>
-              <p>{project.summary}</p>
-            </div>
-            <span className="project-card__open">↗</span>
+    <article className={styles.cardWrapper} data-project={project.slug}>
+      <CardTilt3D className={styles.tiltContainer}>
+        <Link
+          className={styles.card}
+          data-scroll-reveal
+          href={`/work/${project.slug}`}
+        >
+          <div className={styles.cardHeader}>
+            <span className={styles.cardType}>
+              {project.type} · {project.year}
+            </span>
+            <h2 className={styles.cardTitle}>{project.title}</h2>
+            <p className={styles.cardSummary}>{project.summary}</p>
           </div>
-        </div>
-      </Link>
+
+          <div className={styles.cardMedia}>
+            <Image
+              alt={project.cover.alt}
+              fill
+              loading={index === 0 ? "eager" : "lazy"}
+              sizes="(max-width: 820px) 100vw, 50vw"
+              src={project.cover.src}
+            />
+          </div>
+
+          <span className={styles.cardCta}>
+            View case study <span aria-hidden="true" className="chevron">›</span>
+          </span>
+        </Link>
+      </CardTilt3D>
     </article>
   );
 }

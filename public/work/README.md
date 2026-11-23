@@ -112,3 +112,7 @@ Unedited application captures taken from the public `ojeshfr` repositories on 22
 | `sora-updates.webp` | `sora/web/sora-downloads/public/sora-updates.png` | 1288 × 782 |
 
 These show each app's own interface and make no claims beyond it. For example, GlyphLens's capture page shows translation as not implemented.
+
+## Removed source captures
+
+`lane-desktop.png`, `lane-home.png` and `lane-archive.png` are no longer shipped in `public/` because nothing in the app references them (the served LANE images are the `.webp` files under `spatial/` and `case-studies/`). They are preserved in git history before commit `1cd0451` if the originals are needed again. The table and notes above describe where those derived images came from.

@@ -25,12 +25,12 @@ export function SmoothScroll() {
       prevent: (element) => element.tagName === "DIALOG",
     });
     const syncModalScroll = () => {
-      if (document.querySelector("dialog[open]")) lenis.stop();
+      if (document.querySelector("dialog[open], body[data-menu-open]")) lenis.stop();
       else lenis.start();
     };
     const modalObserver = new MutationObserver(syncModalScroll);
     // Child removal also resumes scrolling if navigation unmounts an open dialog.
-    modalObserver.observe(document.body, { attributes: true, attributeFilter: ["open"], childList: true, subtree: true });
+    modalObserver.observe(document.body, { attributes: true, attributeFilter: ["open", "data-menu-open"], childList: true, subtree: true });
     syncModalScroll();
     // Let browser keyboard/focus scrolling take over from any in-flight wheel tween.
     // No default keys are cancelled; Lenis resumes from the resulting native scroll.

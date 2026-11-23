@@ -1,4 +1,4 @@
-// Public GitHub profile (github.com/ojeshfr), profile README and repository READMEs, checked 2026-11-22.
+// Public GitHub profile (github.com/ojeshfr), profile README and repository READMEs, checked 2026-11-22; GlyphLens and larpiano re-checked against their releases on 2026-11-23.
 // Source URLs and attribution limits: qa/profile-refresh-2026-11-22/README.md.
 export const profile = {
   handle: "ojeshfr",
@@ -7,48 +7,6 @@ export const profile = {
   description: "I mostly build with C# and TypeScript, from desktop tools and OCR overlays to web experiences.",
 };
 
-// README purpose + repository contents verified on GitHub, 2026-11-22.
-// Keep this selection small; the case studies remain the primary work showcase.
-export const selectedRepositories = [
-  {
-    name: "glyphlens",
-    description: "A privacy-first, offline Windows screen translator in development. It captures a display or window and reads the text with Windows OCR.",
-    language: "C#",
-    url: "https://github.com/ojeshfr/glyphlens",
-  },
-  {
-    name: "larpiano",
-    description: "A Windows MIDI-to-keyboard piano player for virtual pianos, with a floating overlay, song library and mapping profiles.",
-    language: "C#",
-    url: "https://github.com/ojeshfr/larpiano",
-  },
-  {
-    name: "ClickForge",
-    description: "Windows mouse-click and key-repeat utility with global shortcuts and profiles, built with WPF.",
-    language: "C#",
-    url: "https://github.com/ojeshfr/ClickForge",
-  },
-  {
-    name: "lane-studio",
-    description: "Campaign-led event curation site for LANE, built with the Next.js App Router and TypeScript.",
-    language: "CSS",
-    url: "https://github.com/ojeshfr/lane-studio",
-  },
-  {
-    name: "teen-fiesta-red-room",
-    description: "Next.js event website with local media and a Three.js starburst rendered with React Three Fiber.",
-    language: "TypeScript",
-    provenance: "Originally from gauravxsuvo/teen-fiesta-red-room",
-    url: "https://github.com/ojeshfr/teen-fiesta-red-room",
-  },
-  {
-    name: "portfolio-website",
-    description: "An earlier OVIO studio portfolio built with Next.js App Router, React, TypeScript and plain CSS.",
-    language: "TypeScript",
-    url: "https://github.com/ojeshfr/portfolio-website",
-  },
-] as const;
-
 export type DesktopProject = {
   name: string;
   kind: string;
@@ -56,6 +14,8 @@ export type DesktopProject = {
   technology: string;
   url: string;
   linkLabel: string;
+  /** Latest GitHub release, when the repository publishes one. */
+  release?: { label: string; url: string };
   /** An unedited capture of the app's own interface, taken from its public repository. */
   screenshot?: { src: string; alt: string; aspect: number };
 };
@@ -63,12 +23,13 @@ export type DesktopProject = {
 export const desktopProjects: DesktopProject[] = [
   {
     name: "GlyphLens",
-    kind: "Windows utility / In development",
+    kind: "Windows utility / Developer preview",
     description:
-      "A privacy-first, offline screen translator. It captures a display or window with a live preview and reads text with Windows OCR; translation is not implemented yet.",
-    technology: "C# / Windows OCR / Python worker",
+      "A privacy-first, offline screen translator for Windows 11. It reads text on a window or display with local OCR and shows an English translation in a floating panel. Chinese-first, with gist-level quality.",
+    technology: "C# / WPF / Windows OCR / Python worker",
     url: "https://github.com/ojeshfr/glyphlens",
     linkLabel: "View repository",
+    release: { label: "v0.1.2-preview (unsigned)", url: "https://github.com/ojeshfr/glyphlens/releases/tag/v0.1.2-preview" },
     screenshot: {
       src: "/work/repos/glyphlens-capture.webp",
       alt: "GlyphLens capture page with screen-capture controls, text recognition and translation panels, and no capture running.",
@@ -91,12 +52,13 @@ export const desktopProjects: DesktopProject[] = [
   },
   {
     name: "larpiano",
-    kind: "Windows app / Public beta",
+    kind: "Windows app / v1.1.0",
     description:
-      "Plays MIDI files on virtual pianos by dispatching Windows keyboard scan codes, with a dark desktop interface, floating overlay and customizable mapping profiles.",
+      "Plays MIDI files on virtual pianos by dispatching Windows keyboard scan codes, with a dark desktop interface, floating overlay and customizable mapping profiles. Version 1.1.0 adds 50 calibrated piano tracks for 61-key virtual pianos.",
     technology: "C# / .NET",
     url: "https://github.com/ojeshfr/larpiano",
     linkLabel: "View repository",
+    release: { label: "v1.1.0", url: "https://github.com/ojeshfr/larpiano/releases/tag/v1.1.0" },
     screenshot: {
       src: "/work/repos/larpiano-player.webp",
       alt: "larpiano's piano player window with its Roblox window and song pickers, quick actions and playback controls.",

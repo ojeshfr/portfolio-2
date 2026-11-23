@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { site } from "@/lib/site";
+import styles from "./contact-composer.module.css";
 
 export function ContactComposer() {
   const [draftHref, setDraftHref] = useState("");
@@ -17,7 +18,7 @@ export function ContactComposer() {
     for (const field of ["name", "message"]) {
       const input = event.currentTarget.elements.namedItem(field);
       if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement) {
-        input.setCustomValidity(input.value.trim() ? "" : "Please enter more than spaces.");
+        input.setCustomValidity(input.value.trim() ? "" : "Please provide details here.");
       }
     }
     if (!event.currentTarget.reportValidity()) return;
@@ -31,51 +32,96 @@ export function ContactComposer() {
   }
 
   return (
-    <form
-      className="contact-composer"
-      data-scroll-reveal
-      onChange={(event) => {
-        setDraftHref("");
-        if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
-          event.target.setCustomValidity("");
-        }
-      }}
-      onSubmit={prepareDraft}
-    >
-      <div className="contact-composer__head">
-        <span>Project note / 01</span>
-        <span>Private until you send it</span>
+    <div className={styles.card}>
+      <div className={styles.cardHeader}>
+        <span className={styles.cardBadge}>Project Note / Draft</span>
+        <span className={styles.cardSecurity}>Private · Formatted locally</span>
       </div>
 
-      <label className="contact-composer__field">
-        <span>Your name</span>
-        <input autoComplete="name" maxLength={80} name="name" required />
-      </label>
+      <form
+        className={styles.form}
+        onChange={(event) => {
+          setDraftHref("");
+          if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+            event.target.setCustomValidity("");
+          }
+        }}
+        onSubmit={prepareDraft}
+        noValidate={false}
+      >
+        <div className={styles.fieldGroup}>
+          <label className={styles.fieldLabel} htmlFor="composer-name">
+            Your name
+          </label>
+          <input
+            autoComplete="name"
+            className={styles.input}
+            id="composer-name"
+            maxLength={80}
+            name="name"
+            placeholder="e.g. Maya Lin"
+            required
+            type="text"
+          />
+          <span className={styles.fieldHint}>How Ojesh should address you</span>
+        </div>
 
-      <label className="contact-composer__field">
-        <span>Email address</span>
-        <input autoComplete="email" maxLength={160} name="email" required type="email" />
-      </label>
+        <div className={styles.fieldGroup}>
+          <label className={styles.fieldLabel} htmlFor="composer-email">
+            Email address
+          </label>
+          <input
+            autoComplete="email"
+            className={styles.input}
+            id="composer-email"
+            maxLength={160}
+            name="email"
+            placeholder="name@organization.com"
+            required
+            type="email"
+          />
+          <span className={styles.fieldHint}>Where a response should be sent</span>
+        </div>
 
-      <label className="contact-composer__field contact-composer__field--message">
-        <span>What are you thinking about?</span>
-        <textarea maxLength={2000} name="message" required rows={4} />
-      </label>
+        <div className={styles.fieldGroup}>
+          <label className={styles.fieldLabel} htmlFor="composer-message">
+            What are you thinking about?
+          </label>
+          <textarea
+            className={styles.textarea}
+            id="composer-message"
+            maxLength={2000}
+            name="message"
+            placeholder="Describe your idea, project scope, technical question, or timeline..."
+            required
+            rows={5}
+          />
+          <span className={styles.fieldHint}>A few clear lines are plenty to start</span>
+        </div>
 
-      <div className="contact-composer__submit-row">
-        <p>This prepares a message in your email app. Nothing is sent by this site.</p>
-        <button className="contact-composer__submit" type="submit">
-          Prepare the note <span aria-hidden="true">↗</span>
-        </button>
-      </div>
+        <div className={styles.submitRow}>
+          <p className={styles.submitDisclaimer}>
+            This builds a standard draft in your email app. No data is stored or transmitted by this website.
+          </p>
+          <button className="btn btn--primary" type="submit">
+            Prepare the note <span aria-hidden="true" className="chevron">›</span>
+          </button>
+        </div>
+      </form>
 
-      <p aria-live="polite" className="contact-composer__result" role="status">
+      <div aria-live="polite" className={styles.statusContainer} role="status">
         {draftHref ? (
-          <>
-            Your draft is ready. <a href={draftHref}>Open it in your email app ↗</a>
-          </>
+          <div className={styles.draftCard}>
+            <p className={styles.draftTitle}>Draft prepared successfully</p>
+            <p className={styles.draftText}>
+              Select the button below to launch your email client with your note pre-filled.
+            </p>
+            <a className={`btn btn--primary ${styles.draftAction}`} href={draftHref}>
+              Open in email app <span aria-hidden="true" className="chevron">›</span>
+            </a>
+          </div>
         ) : null}
-      </p>
-    </form>
+      </div>
+    </div>
   );
 }

@@ -1,87 +1,476 @@
-.page { background: #08090b; }
-.masthead, .intro, .web, .desktop, .closing { position: relative; isolation: isolate; }
-.masthead { position: relative; padding: calc(var(--header-h) + 3rem) var(--gutter) 3rem; }
-.topline { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--paper-dim); font-size: .8rem; }
-.topline p { margin: 0; }
-.topline a { padding-block: .65rem; }
-.identity { display: grid; grid-template-columns: 1.35fr 1fr; align-items: end; gap: 3rem; padding-block: 2.5rem 4rem; }
-.name { margin: 0 0 -.035em -.04em; font: 500 clamp(7rem, 20vw, 22rem)/.86 var(--sans); letter-spacing: -.055em; }
-.statement { max-width: 24rem; padding-bottom: .2rem; }
-.statement > p { margin-bottom: 1.7rem; font: 400 clamp(1.7rem, 2.7vw, 3rem)/1.16 var(--serif); font-style: italic; letter-spacing: -.02em; }
-.textLink { display: inline-flex; gap: 1.5rem; align-items: center; min-height: 2.75rem; font-size: .8rem; border-bottom: 1px solid var(--rule-strong); transition: color .2s, border-color .2s; }
-.textLink:hover { color: var(--copper); border-color: var(--copper); }
-.facts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin: 0; padding-block: 1.8rem .5rem; border-top: 1px solid var(--rule); }
-.facts dt { margin-bottom: .45rem; color: var(--quiet); font-size: .75rem; }
-.facts dd { margin: 0; font-size: clamp(.85rem, 1.15vw, 1rem); }
-.intro { display: grid; grid-template-columns: 1.1fr 1fr; align-items: start; gap: 5rem; padding: clamp(4rem, 7vw, 7rem) var(--gutter); border-top: 1px solid var(--rule); }
-.intro h2 { max-width: 16ch; margin: 0; font: 400 clamp(2.5rem, 4.8vw, 5rem)/1.07 var(--serif); font-style: italic; letter-spacing: -.025em; }
-.intro p { max-width: 45ch; margin-bottom: 1.25rem; color: var(--paper-dim); line-height: 1.8; font-size: .95rem; }
-.intro a:not(.textLink), .homeCopy p a { text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: .2em; }
-.web { padding: clamp(4rem, 7vw, 7rem) var(--gutter); background: #111214; }
-.sectionHead { display: flex; align-items: end; justify-content: space-between; gap: 3rem; padding-bottom: 3rem; }
-.sectionHead h2 { margin: 0; font: 500 clamp(2.8rem, 5.6vw, 6rem)/1.02 var(--sans); letter-spacing: -.045em; }
-.sectionHead > p { max-width: 29ch; margin: 0; color: var(--paper-dim); font-size: .85rem; line-height: 1.75; }
-.webProject { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 6rem); padding-block: 2.5rem; border-top: 1px solid var(--rule); align-items: center; }
-.webImage { display: block; overflow: hidden; background: #08090b; }
-.webImage img { width: 100%; height: auto; }
-.webImage:focus-visible { outline-offset: 5px; }
-.projectKind { margin-bottom: .7rem; color: var(--quiet); font-size: .75rem; }
-.webProject h3, .desktopProject h3 { margin: 0 0 1rem; font: 500 clamp(2rem, 3.3vw, 3.5rem)/1.06 var(--sans); letter-spacing: -.04em; }
-.projectDescription { max-width: 43ch; margin-bottom: 1.2rem; color: var(--paper-dim); font-size: .9rem; line-height: 1.8; }
-.sourceNote { max-width: 47ch; margin: 1.2rem 0 0; color: var(--quiet); font-size: .75rem; line-height: 1.7; }
-.actions { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem 2rem; }
-.desktop { padding: clamp(4rem, 8vw, 8rem) var(--gutter); }
-.desktopProject { display: grid; grid-template-columns: .9fr 1.2fr auto; gap: 2rem 4rem; align-items: start; padding-block: 2.5rem; border-top: 1px solid var(--rule); }
-.desktopProject h3 { font-size: clamp(1.8rem, 2.7vw, 2.8rem); margin-bottom: 0; }
-.desktopShot { grid-column: 1 / -1; margin: .75rem 0 0; max-width: 62rem; }
-.desktopShot img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: #08090b; }
-.desktopShot figcaption { margin-top: .7rem; color: var(--quiet); font-size: .75rem; letter-spacing: .02em; }
-.desktopProject .projectDescription { margin-bottom: .85rem; }
-.technology { margin: 0; color: var(--quiet); font-size: .75rem; }
-.closing { display: flex; justify-content: space-between; align-items: end; gap: 3rem; margin-inline: var(--gutter); padding-block: 3rem 6rem; border-top: 1px solid var(--rule); }
-.closing h2 { max-width: 20ch; margin-bottom: 1.5rem; font: 400 clamp(2.5rem, 5vw, 5rem)/1.07 var(--serif); font-style: italic; letter-spacing: -.025em; }
-.homeSection { border-top: 1px solid var(--rule); }
-.homeSection .homeMeta { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; color: var(--paper-dim); font-size: .8rem; }
-.homeMeta p { margin: 0; }
-.homeSection .homeGrid { grid-template-columns: 1.2fr 1fr; align-items: start; gap: clamp(2.5rem, 6vw, 7rem); }
-.homeSection .homeHeading { margin: 0; font-size: clamp(3.6rem, 7vw, 7.5rem); line-height: .98; letter-spacing: -.055em; }
-.homeCopy > p:first-child { margin-top: .3rem; color: var(--paper); font-size: clamp(1.15rem, 1.7vw, 1.6rem); line-height: 1.55; }
-.homeCopy > p { max-width: 43ch; }
-.homeSection .homeActions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 2rem; margin-top: 1.8rem; }
-.homeSection .homeActions a { margin: 0; }
-.repository { padding-block: 1.5rem 2.5rem; border-top: 1px solid var(--rule); }
-.repository p { max-width: 64ch; margin: 1rem 0 0; color: var(--quiet); font-size: .8rem; line-height: 1.75; }
-@media (prefers-reduced-motion: no-preference) {
-  .identity { animation: profile-arrive .65s ease-out both; }
-  @keyframes profile-arrive { from { opacity: .25; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+/* ==========================================================================
+   ABOUT PAGE STYLES — Apple-Inspired Profile & Narrative
+   ========================================================================== */
+
+.page {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
 }
-@media (min-width: 1600px) { .masthead, .intro, .web, .desktop { padding-inline: max(var(--gutter), calc((100vw - 1480px) / 2)); } }
-@media (max-width: 1000px) {
-  .identity { grid-template-columns: 1.2fr 1fr; gap: 2rem; }
-  .name { font-size: 20vw; }
-  .statement > p { font-size: clamp(1.6rem, 3vw, 2.2rem); }
-  .intro { gap: 3rem; }
-  .desktopProject { grid-template-columns: .85fr 1.15fr; gap: 1rem 2.5rem; }
-  .desktopProject > a { grid-column: 2; justify-self: start; }
+
+/* --------------------------------------------------------------------------
+   1. HERO: CALM "MEET THE MAKER" HEADER
+   -------------------------------------------------------------------------- */
+.heroSection {
+  position: relative;
+  padding-top: calc(var(--header-h) + clamp(3.5rem, 8vw, 6.5rem));
+  padding-bottom: clamp(3rem, 6vw, 5rem);
 }
-@media (max-width: 760px) {
-  .masthead { padding-top: calc(var(--header-h) + 2rem); padding-bottom: 2.5rem; }
-  .identity { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 2.5rem; }
-  .name { font-size: 29vw; }
-  .statement { max-width: 29rem; }
-  .statement > p { font-size: clamp(2rem, 6.5vw, 3rem); margin-bottom: 1rem; }
-  .facts { grid-template-columns: 1fr 1.3fr; gap: 1.5rem; }
-  .facts > div:last-child { grid-column: 1 / -1; }
-  .intro { grid-template-columns: 1fr; gap: 2rem; }
-  .intro h2 { max-width: 20ch; }
-  .sectionHead { align-items: start; flex-direction: column; gap: 1.2rem; padding-bottom: 2rem; }
-  .sectionHead > p { max-width: 43ch; }
-  .webProject { grid-template-columns: 1fr; gap: 2rem; padding-block: 2rem 3rem; }
-  .desktopProject { grid-template-columns: 1fr; gap: 1.4rem; padding-block: 2rem; }
-  .desktopProject > a { grid-column: auto; }
-  .desktopProject h3 { font-size: 2.25rem; }
-  .closing { flex-direction: column; align-items: start; gap: 1.5rem; padding-block: 1.5rem 4rem; }
-  .homeSection .homeGrid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .homeSection .homeHeading { font-size: clamp(3.5rem, 10vw, 5.5rem); }
-  .homeSection .homeMeta { margin-bottom: 2.5rem; font-size: .75rem; }
+
+.heroContent {
+  max-width: 52rem;
+}
+
+.heroTitle {
+  font-size: clamp(3.5rem, 8vw, 5.75rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+  margin-bottom: 1.25rem;
+  text-wrap: balance;
+}
+
+.heroStatement {
+  font-size: clamp(1.25rem, 2.2vw, 1.55rem);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--text-secondary);
+  max-width: 38ch;
+  margin-bottom: 2.5rem;
+  text-wrap: balance;
+}
+
+/* Specs Row / Pills */
+.specsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  margin: 0 0 2rem;
+  padding: 0;
+}
+
+.specCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: clamp(1.2rem, 2.5vw, 1.5rem);
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.specLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.specValue {
+  font-size: clamp(0.95rem, 1.25vw, 1.125rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.heroAction {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   2. EDITORIAL STORY: STICKY HEADING + SCROLLING NARRATIVE
+   -------------------------------------------------------------------------- */
+.storyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .storyGrid {
+    grid-template-columns: minmax(18rem, 1fr) minmax(0, 1.4fr);
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .stickyCol {
+    position: sticky;
+    top: calc(var(--header-h) + 3rem);
+    align-self: start;
+  }
+}
+
+.storyHeadline {
+  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  text-wrap: balance;
+  margin-top: 0.35rem;
+}
+
+.storyContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.storyContent p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.storyContent p strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.storyLinks {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   3. WEB PROJECTS BENTO GRID
+   -------------------------------------------------------------------------- */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.bentoCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-radius: var(--radius-card);
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-card);
+  color: inherit;
+  text-decoration: none;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              box-shadow var(--duration-normal) var(--ease-apple),
+              border-color var(--duration-normal) var(--ease-apple);
+}
+
+.bentoCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.bentoHead {
+  margin-bottom: 1.5rem;
+}
+
+.bentoType {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.bentoTitle {
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.bentoSummary {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 40ch;
+}
+
+.bentoMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  background-color: var(--surface-tint);
+  border: 1px solid var(--hairline);
+  margin-bottom: 1.5rem;
+}
+
+.bentoMedia img {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-apple);
+}
+
+.bentoCard:hover .bentoMedia img {
+  transform: scale(1.025);
+}
+
+.provenanceNote {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+  padding-left: 0.65rem;
+  border-left: 2px solid var(--hairline-strong);
+}
+
+.bentoActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+}
+
+/* --------------------------------------------------------------------------
+   4. WINDOWS TOOLS GRID & COMPANIONS
+   -------------------------------------------------------------------------- */
+.desktopGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.desktopCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--radius-card);
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-card);
+  color: inherit;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              box-shadow var(--duration-normal) var(--ease-apple);
+}
+
+.desktopCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.desktopCardHead {
+  margin-bottom: 1rem;
+}
+
+.desktopTag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.desktopTitle {
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 0.45rem;
+}
+
+.desktopDesc {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.desktopMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  background-color: var(--surface-tint);
+  border: 1px solid var(--hairline);
+  margin-bottom: 1.25rem;
+}
+
+.desktopMedia img {
+  object-fit: cover;
+}
+
+.desktopFoot {
+  margin-top: auto;
+}
+
+.desktopTech {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin: 0 0 0.85rem;
+}
+
+.provenanceBadge {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: var(--surface-tint);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-xs);
+  padding: 0.35rem 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+/* Companion Utilities Row */
+.companionHead {
+  margin-bottom: 1.25rem;
+}
+
+.companionHead h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.companionHead p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.companionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.companionCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.25rem 1.4rem;
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-inner);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration-fast) var(--ease-apple),
+              box-shadow var(--duration-fast) var(--ease-apple);
+}
+
+.companionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.companionCard h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin: 0 0 0.35rem;
+}
+
+.companionCard p {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+}
+
+.companionCard .desktopTech {
+  margin-bottom: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   5. CLOSING CTA SECTION
+   -------------------------------------------------------------------------- */
+.closingInner {
+  text-align: center;
+  max-width: 44rem;
+  margin-inline: auto;
+}
+
+.closingActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  margin-bottom: 1.75rem;
+}
+
+.closingMeta {
+  font-size: 0.8125rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. WORK/[SLUG] COMPATIBILITY STYLES
+   (Preserved for work route worker)
+   -------------------------------------------------------------------------- */
+.repository {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1.0625rem;
+  color: var(--accent-link);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-apple);
+}
+
+.textLink:hover {
+  color: var(--accent-link-hover);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 820px) {
+  .specsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .bentoGrid,
+  .desktopGrid,
+  .companionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.desktopLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
 }

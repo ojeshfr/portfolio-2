@@ -6,100 +6,306 @@ import { projects } from "@/lib/projects";
 import { pageMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import styles from "@/components/profile.module.css";
-import { Atmosphere } from "@/components/atmosphere";
 
 export const metadata: Metadata = pageMetadata({
   title: "About",
-  description: "Ojesh, based in India. Building with C# and TypeScript, from desktop tools and OCR overlays to web experiences. Explore the projects and public source.",
+  description: "Ojesh, based in India. Engineering with C# and TypeScript, from desktop tools and OCR overlays to web experiences.",
   path: "/about",
 });
 
-const webProjects = projects.flatMap((project) => project.repository ? [{ ...project, repository: project.repository }] : []);
-
 export default function AboutPage() {
+  const featuredTools = desktopProjects.filter((tool) => Boolean(tool.screenshot));
+  const companionTools = desktopProjects.filter((tool) => !tool.screenshot);
+
   return (
     <div className={styles.page}>
-      <header className={styles.masthead}>
-        <Atmosphere variant="profile" />
-        <div className={styles.topline}>
-          <p>About me</p>
-          <a href={site.githubUrl} rel="noreferrer" target="_blank">@{profile.handle} <span aria-hidden="true">↗</span></a>
-        </div>
-        <div className={styles.identity}>
-          <h1 className={styles.name}>Ojesh.</h1>
-          <div className={styles.statement}>
-            <p>{profile.introduction}</p>
-            <a className={styles.textLink} href={site.githubUrl} rel="noreferrer" target="_blank">Explore my GitHub <span aria-hidden="true">↗</span></a>
+      {/* 1. Calm Hero: Meet the Maker */}
+      <section className={styles.heroSection} aria-labelledby="about-hero-title">
+        <div className="container">
+          <div className={styles.heroContent} data-scroll-reveal>
+            <span className="eyebrow">Meet the Maker</span>
+            <h1 className={styles.heroTitle} id="about-hero-title">
+              Ojesh
+            </h1>
+            <p className={styles.heroStatement}>
+              {profile.introduction} {profile.description}
+            </p>
+
+            {/* Spec rows */}
+            <dl className={styles.specsRow} aria-label="Profile specifications">
+              <div className={styles.specCard}>
+                <dt className={styles.specLabel}>Based in</dt>
+                <dd className={styles.specValue}>{profile.location}</dd>
+              </div>
+              <div className={styles.specCard}>
+                <dt className={styles.specLabel}>Works with</dt>
+                <dd className={styles.specValue}>C# &amp; TypeScript</dd>
+              </div>
+              <div className={styles.specCard}>
+                <dt className={styles.specLabel}>Makes</dt>
+                <dd className={styles.specValue}>Desktop tools, OCR overlays &amp; web</dd>
+              </div>
+            </dl>
+
+            <div className={styles.heroAction}>
+              <a
+                className="text-link"
+                href={site.githubUrl}
+                rel="noreferrer"
+                target="_blank"
+                aria-label={`Explore @${profile.handle} on GitHub (opens in new tab)`}
+              >
+                Explore @{profile.handle} on GitHub <span aria-hidden="true" className="chevron">›</span>
+              </a>
+            </div>
           </div>
         </div>
-        <dl className={styles.facts}>
-          <div><dt>Based in</dt><dd>{profile.location}</dd></div>
-          <div><dt>Mostly working with</dt><dd>C# &amp; TypeScript</dd></div>
-          <div><dt>Making</dt><dd>Desktop tools, OCR overlays &amp; web</dd></div>
-        </dl>
-      </header>
-
-      <section className={styles.intro} aria-labelledby="profile-note">
-        <Atmosphere variant="editorial" />
-        <h2 id="profile-note">From the browser to the desktop.</h2>
-        <div>
-          <p>{profile.description}</p>
-          <p>That range includes event websites, a training log, and Windows tools like <a href={desktopProjects[0].url} rel="noreferrer" target="_blank">GlyphLens</a>, an offline screen translator built on OCR. The projects below bring those two sides together.</p>
-          <a className={styles.textLink} href={`${site.githubUrl}?tab=repositories`} rel="noreferrer" target="_blank">All repositories <span aria-hidden="true">↗</span></a>
-        </div>
       </section>
 
-      <section className={styles.web} aria-labelledby="profile-web">
-        <Atmosphere variant="gallery" />
-        <div className={styles.sectionHead}>
-          <h2 id="profile-web">In the browser.</h2>
-          <p>Event websites and training tools.<br />Built with TypeScript, React, and Next.js.</p>
-        </div>
-        {webProjects.map((project) => (
-          <article className={styles.webProject} key={project.slug}>
-            <Link className={styles.webImage} href={`/work/${project.slug}`} aria-label={`Explore the ${project.title} case study`}>
-              <Image src={project.cover.src} alt={project.cover.alt} width={960} height={Math.round(960 / project.cover.aspect)} sizes="(max-width: 760px) 92vw, 48vw" quality={90} />
-            </Link>
-            <div>
-              <p className={styles.projectKind}>{project.type}</p>
-              <h3>{project.title}</h3>
-              <p className={styles.projectDescription}>{project.repository.description}</p>
-              <div className={styles.actions}>
-                <Link className={styles.textLink} href={`/work/${project.slug}`}>View case study <span aria-hidden="true">↗</span></Link>
-                <a className={styles.textLink} href={project.repository.url} rel="noreferrer" target="_blank">GitHub repository <span aria-hidden="true">↗</span></a>
-              </div>
-              <p className={styles.sourceNote}>{project.repository.note}</p>
+      {/* 2. Editorial Narrative: From the browser to the desktop */}
+      <section className="section section--tint" aria-labelledby="story-heading">
+        <div className="container">
+          <div className={styles.storyGrid}>
+            <div className={styles.stickyCol}>
+              <span className="eyebrow">Architecture &amp; Focus</span>
+              <h2 className={styles.storyHeadline} id="story-heading">
+                From the browser to the desktop.
+              </h2>
             </div>
-          </article>
-        ))}
+            <div className={styles.storyContent}>
+              <p>
+                I build software across two complementary environments: interactive, graphics-rich interfaces in the browser, and native, high-performance utilities on the Windows desktop.
+              </p>
+              <p>
+                My web development focuses on deliberate interaction, real-time 3D, and offline-first reliability using <strong>TypeScript, React, and Next.js</strong>. On Windows, I engineer low-latency screen overlays, input automation utilities, and hardware integrations with <strong>C# and .NET</strong>.
+              </p>
+              <p>
+                Whether reading pixels off a live display with Windows OCR in GlyphLens or structuring a campaign archive for LANE, the discipline remains consistent: precise code, unbloated architecture, and tools built with respect for the user.
+              </p>
+              <div className={styles.storyLinks}>
+                <a
+                  className="text-link"
+                  href={`${site.githubUrl}?tab=repositories`}
+                  rel="noreferrer"
+                  target="_blank"
+                  aria-label="View all public repositories on GitHub (opens in new tab)"
+                >
+                  All public repositories <span aria-hidden="true" className="chevron">›</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section className={styles.desktop} aria-labelledby="profile-desktop">
-        <Atmosphere variant="grid" />
-        <div className={styles.sectionHead}>
-          <h2 id="profile-desktop">On the desktop.</h2>
-          <p>Native Windows tools, from OCR and input utilities to a virtual piano and a hardware hub.</p>
+      {/* 3. Four Web Projects Bento Grid */}
+      <section className="section" aria-labelledby="web-projects-heading">
+        <div className="container">
+          <div className="section-head">
+            <span className="eyebrow">Web Engineering</span>
+            <h2 className="headline" id="web-projects-heading">
+              In the browser.
+            </h2>
+            <p className="subhead">
+              Event platforms, training applications, and media products built with TypeScript, React, and Next.js.
+            </p>
+          </div>
+
+          <div className={styles.bentoGrid}>
+            {projects.map((project) => (
+              <article className={styles.bentoCard} key={project.slug}>
+                <div>
+                  <div className={styles.bentoHead}>
+                    <span className={styles.bentoType}>
+                      {project.type} · {project.year}
+                    </span>
+                    <h3 className={styles.bentoTitle}>{project.title}</h3>
+                    <p className={styles.bentoSummary}>{project.summary}</p>
+                  </div>
+
+                  <div className={styles.bentoMedia}>
+                    <Image
+                      src={project.cover.src}
+                      alt={project.cover.alt}
+                      fill
+                      sizes="(max-width: 820px) 100vw, 50vw"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  {project.repository?.note && (
+                    <p className={styles.provenanceNote}>
+                      {project.repository.note}
+                    </p>
+                  )}
+                  {project.credit && (
+                    <p className={styles.provenanceNote}>
+                      {project.credit}
+                    </p>
+                  )}
+                </div>
+
+                <div className={styles.bentoActions}>
+                  <Link
+                    className="text-link"
+                    href={`/work/${project.slug}`}
+                    aria-label={`View case study: ${project.title}`}
+                  >
+                    View case study <span aria-hidden="true" className="chevron">›</span>
+                  </Link>
+                  {project.repository ? (
+                    <a
+                      className="text-link"
+                      href={project.repository.url}
+                      rel="noreferrer"
+                      target="_blank"
+                      aria-label={`GitHub repository: ${project.title}`}
+                    >
+                      GitHub repository <span aria-hidden="true" className="chevron">↗</span>
+                    </a>
+                  ) : project.liveUrl ? (
+                    <a
+                      className="text-link"
+                      href={project.liveUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                      aria-label={`Visit live site: ${project.title}`}
+                    >
+                      Visit live site <span aria-hidden="true" className="chevron">↗</span>
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
-        {desktopProjects.map((project) => (
-          <article className={styles.desktopProject} key={project.name}>
-            <div><p className={styles.projectKind}>{project.kind}</p><h3>{project.name}</h3></div>
-            <div><p className={styles.projectDescription}>{project.description}</p><p className={styles.technology}>{project.technology}</p></div>
-            <a className={styles.textLink} href={project.url} rel="noreferrer" target="_blank" aria-label={`${project.linkLabel}: ${project.name}`}>{project.linkLabel} <span aria-hidden="true">↗</span></a>
-            {project.screenshot ? <figure className={styles.desktopShot}>
-              <Image src={project.screenshot.src} alt={project.screenshot.alt} width={1600} height={Math.round(1600 / project.screenshot.aspect)} sizes="(max-width: 760px) 92vw, 62rem" quality={90} />
-              <figcaption>{project.name} interface, as captured in its public repository.</figcaption>
-            </figure> : null}
-          </article>
-        ))}
       </section>
 
-      <section className={styles.closing} aria-labelledby="profile-next">
-        <Atmosphere variant="closing" />
-        <div>
-          <h2 id="profile-next">Following the next idea.</h2>
-          <a className={styles.textLink} href={site.githubUrl} rel="noreferrer" target="_blank">See what I&apos;m building on GitHub <span aria-hidden="true">↗</span></a>
+      {/* 4. Windows Tools Grid & Provenance */}
+      <section className="section section--tint" aria-labelledby="desktop-tools-heading">
+        <div className="container">
+          <div className="section-head">
+            <span className="eyebrow">Desktop Engineering</span>
+            <h2 className="headline" id="desktop-tools-heading">
+              On the desktop.
+            </h2>
+            <p className="subhead">
+              Native Windows tools, from OCR screen overlays and input automation to virtual pianos and hardware hubs.
+            </p>
+          </div>
+
+          {/* Primary tools with authentic screenshots */}
+          <div className={styles.desktopGrid}>
+            {featuredTools.map((tool) => (
+              <article className={styles.desktopCard} key={tool.name}>
+                <div>
+                  <div className={styles.desktopCardHead}>
+                    <span className={styles.desktopTag}>{tool.kind}</span>
+                    <h3 className={styles.desktopTitle}>{tool.name}</h3>
+                    <p className={styles.desktopDesc}>{tool.description}</p>
+                  </div>
+
+                  {tool.screenshot && (
+                    <div className={styles.desktopMedia}>
+                      <Image
+                        src={tool.screenshot.src}
+                        alt={tool.screenshot.alt}
+                        fill
+                        sizes="(max-width: 820px) 100vw, 50vw"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.desktopFoot}>
+                  {tool.name === "Sora" && (
+                    <span className={styles.provenanceBadge}>
+                      Provenance: Originally published as gauravxsuvo/Sora.
+                    </span>
+                  )}
+                  <p className={styles.desktopTech}>{tool.technology}</p>
+                  <div className={styles.desktopLinks}>
+                    <a
+                      className="text-link"
+                      href={tool.url}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {tool.linkLabel} <span aria-hidden="true" className="chevron">↗</span>
+                    </a>
+                    {tool.release ? (
+                      <a
+                        className="text-link"
+                        href={tool.release.url}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        Latest release {tool.release.label} <span aria-hidden="true" className="chevron">↗</span>
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {/* Companion utilities & prototypes */}
+          <div className={styles.companionSection}>
+            <div className={styles.companionHead}>
+              <h3>Prototypes &amp; Additional Utilities</h3>
+              <p>Specialized Windows prototypes, game tools, and workspace experiments.</p>
+            </div>
+            <div className={styles.companionGrid}>
+              {companionTools.map((tool) => (
+                <article className={styles.companionCard} key={tool.name}>
+                  <div>
+                    <span className={styles.desktopTag}>{tool.kind}</span>
+                    <h4>{tool.name}</h4>
+                    <p>{tool.description}</p>
+                  </div>
+                  <div>
+                    <p className={styles.desktopTech}>{tool.technology}</p>
+                    <a
+                      className="text-link"
+                      href={tool.url}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {tool.linkLabel} <span aria-hidden="true" className="chevron">↗</span>
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
-        <Link className={styles.textLink} href="/contact">Get in touch <span aria-hidden="true">↗</span></Link>
+      </section>
+
+      {/* 5. Closing CTA */}
+      <section className="section" aria-labelledby="about-cta-heading">
+        <div className="container">
+          <div className={styles.closingInner}>
+            <span className="eyebrow">Start a Conversation</span>
+            <h2 className="headline" id="about-cta-heading">
+              Have a project in mind?
+            </h2>
+            <p className="subhead">
+              Share the early thought, the almost-finished brief, or the part that still needs solving.
+            </p>
+            <div className={styles.closingActions}>
+              <Link className="btn btn--primary" href="/contact">
+                Start a conversation <span aria-hidden="true" className="chevron">›</span>
+              </Link>
+              <a className="btn btn--secondary" href={`mailto:${site.contactEmail}`}>
+                {site.contactEmail}
+              </a>
+            </div>
+            <p className={styles.closingMeta}>
+              Based in {profile.location} · C# &amp; TypeScript
+            </p>
+          </div>
+        </div>
       </section>
     </div>
   );
