@@ -999,6 +999,9 @@ main:focus {
 }
 
 .spatial-contact {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
   font-size: 0.8125rem;
   color: var(--text-dark-secondary);
   transition: color var(--duration-fast) var(--ease-apple);

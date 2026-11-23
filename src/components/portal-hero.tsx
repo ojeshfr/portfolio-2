@@ -49,6 +49,7 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
   const [indexPresent, setIndexPresent] = useState(false);
   const [ready, setReady] = useState(false);
   const [quality, setQuality] = useState<QualityTier>("high");
+  const qualityLabel = quality === "high" ? "3D: High" : quality === "medium" ? "3D: Med" : "3D: Low";
 
   const root = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -327,10 +328,10 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
           <button
             type="button"
             onClick={() => setQuality((q) => (q === "high" ? "medium" : q === "medium" ? "low" : "high"))}
-            aria-label={`Change 3D visual quality. Current tier: ${quality}`}
+            aria-label={`${qualityLabel}: change 3D visual quality`}
             title="Toggle 3D visual quality (High, Medium, Low)"
           >
-            {quality === "high" ? "3D: High" : quality === "medium" ? "3D: Med" : "3D: Low"}
+            {qualityLabel}
           </button>
         </div>
       </div>
