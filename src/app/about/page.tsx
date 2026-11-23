@@ -66,7 +66,7 @@ export default function AboutPage() {
               <p className={styles.projectDescription}>{project.repository.description}</p>
               <div className={styles.actions}>
                 <Link className={styles.textLink} href={`/work/${project.slug}`} aria-label={`View ${project.title} case study`}>View case study <span aria-hidden="true">↗</span></Link>
-                <a className={styles.textLink} href={project.repository.url} rel="noreferrer" target="_blank" aria-label={`View ${project.title} on GitHub`}>GitHub repository <span aria-hidden="true">↗</span></a>
+                <a className={styles.textLink} href={project.repository.url} rel="noreferrer" target="_blank" aria-label={`GitHub repository: ${project.title}`}>GitHub repository <span aria-hidden="true">↗</span></a>
               </div>
               <p className={styles.sourceNote}>{project.repository.note}</p>
             </div>

@@ -139,7 +139,7 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
         <div className={"spatial-fallback" + (ready ? " is-hidden" : "")}>
           {items.slice(0, 4).map((entry, i) => <Link href={entry.href} key={entry.id}
             style={{ "--plane": i, "--aspect": entry.image.aspect } as CSSProperties}>
-            <Image src={entry.image.src} alt={entry.image.alt} fill sizes="(max-width: 760px) 75vw, 42vw" loading="lazy" />
+            <Image src={entry.image.src} alt={entry.image.alt} fill sizes="(max-width: 760px) 75vw, 42vw" loading="eager" />
           </Link>)}
         </div>
         <div className={"spatial-webgl" + (ready ? " is-ready" : "")} aria-hidden="true"><SceneBoundary onFailure={markFailed}>
