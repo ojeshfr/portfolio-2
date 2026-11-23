@@ -233,6 +233,16 @@ export default function AboutPage() {
                   >
                     {tool.linkLabel} <span aria-hidden="true" className="chevron">↗</span>
                   </a>
+                  {tool.release ? (
+                    <a
+                      className="text-link"
+                      href={tool.release.url}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      Latest release {tool.release.label} <span aria-hidden="true" className="chevron">↗</span>
+                    </a>
+                  ) : null}
                 </div>
               </article>
             ))}
