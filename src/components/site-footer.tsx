@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { projects } from "@/lib/projects";
+import { desktopProjects } from "@/lib/profile";
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer" role="contentinfo">
+    <footer className="site-footer">
       <div className="container">
         <div className="site-footer__sitemap">
           <div className="site-footer__col">
-            <h3>Selected Work</h3>
+            <h2>Selected Work</h2>
             <ul>
               {projects.map((project) => (
                 <li key={project.slug}>
@@ -24,33 +25,20 @@ export function SiteFooter() {
           </div>
 
           <div className="site-footer__col">
-            <h3>Windows Tools</h3>
+            <h2>Windows Tools</h2>
             <ul>
-              <li>
-                <a href="https://github.com/ojeshfr/glyphlens" rel="noreferrer" target="_blank">
-                  GlyphLens <span aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/ojeshfr/ClickForge" rel="noreferrer" target="_blank">
-                  ClickForge <span aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/ojeshfr/larpiano" rel="noreferrer" target="_blank">
-                  larpiano <span aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://github.com/ojeshfr/sora" rel="noreferrer" target="_blank">
-                  Sora <span aria-hidden="true">↗</span>
-                </a>
-              </li>
+              {desktopProjects.map((tool) => (
+                <li key={tool.name}>
+                  <a href={tool.url} rel="noreferrer" target="_blank">
+                    {tool.name} <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div className="site-footer__col">
-            <h3>About</h3>
+            <h2>About</h2>
             <ul>
               <li>
                 <Link href="/about">Overview</Link>
@@ -70,7 +58,7 @@ export function SiteFooter() {
           </div>
 
           <div className="site-footer__col">
-            <h3>Contact</h3>
+            <h2>Contact</h2>
             <ul>
               <li>
                 <Link href="/contact">Start a Conversation</Link>

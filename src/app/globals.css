@@ -635,7 +635,7 @@ main:focus {
   padding-bottom: clamp(3rem, 6vw, 4.5rem);
 }
 
-.site-footer__col h3 {
+.site-footer__col h2 {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-dark);
@@ -1897,4 +1897,38 @@ main:focus {
   .card, .tool-card, .work-bento__card {
     border: 1px solid ButtonText !important;
   }
+}
+
+/* 3D gallery backdrop: the pre-rendered nebula and distant stars behind the WebGL scene.
+   Scoped to the gallery so the light editorial sections stay clean. */
+.spatial-hero {
+  --atmosphere-nebula: url("/atmosphere/cosmic-nebula.webp");
+  --atmosphere-distance: url("/atmosphere/cosmic-distance.svg");
+}
+.spatial-hero .ambient-field {
+  position: absolute; z-index: 0; inset: 0; overflow: clip; pointer-events: none;
+  background: linear-gradient(180deg, #03050b55, transparent 22%, transparent 70%, #03050b88);
+}
+.spatial-hero .ambient-field::before {
+  position: absolute; inset: -3%; content: ""; opacity: .4;
+  transform: translate3d(-.35%, .15%, 0) scale(1.035); transform-origin: 58% 48%;
+  background: var(--atmosphere-nebula) center / cover no-repeat;
+  animation: ambient-drift 110s ease-in-out infinite alternate; animation-play-state: paused;
+}
+.spatial-hero .ambient-field::after {
+  position: absolute; inset: 0; content: ""; opacity: .8;
+  background: var(--atmosphere-distance) center / 100% 100% no-repeat;
+}
+.spatial-hero .ambient-field[data-active="true"][data-motion="standard"]::before { animation-play-state: running; }
+@keyframes ambient-drift { to { transform: translate3d(.35%, -.15%, 0) scale(1.045); } }
+@media (max-width: 760px) {
+  .spatial-hero {
+    --atmosphere-nebula: url("/atmosphere/cosmic-nebula-mobile.webp");
+    --atmosphere-distance: url("/atmosphere/cosmic-distance-mobile.svg");
+  }
+  .spatial-hero .ambient-field::before { animation: none; transform: none; opacity: .3; }
+  .spatial-hero .ambient-field::after { opacity: .65; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .spatial-hero .ambient-field::before { animation: none !important; transform: none !important; }
 }

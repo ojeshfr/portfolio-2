@@ -23,6 +23,7 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const reduceMotion = usePrefersReducedMotion();
 
   // Handle scroll detection for glass depth enhancement
@@ -48,15 +49,19 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [menuOpen]);
 
-  // Lock body scroll when mobile menu is open
+  // While the mobile menu is open: lock scrolling (incl. Lenis), make the page behind it inert,
+  // and move focus into the panel so keyboard and screen-reader users stay inside it.
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.removeProperty("overflow");
-    }
+    if (!menuOpen) return;
+    const behind = document.querySelectorAll<HTMLElement>("#main-content, .site-footer");
+    behind.forEach((element) => { element.inert = true; });
+    document.body.style.overflow = "hidden";
+    document.body.dataset.menuOpen = "true";
+    panelRef.current?.querySelector<HTMLElement>("a")?.focus();
     return () => {
+      behind.forEach((element) => { element.inert = false; });
       document.body.style.removeProperty("overflow");
+      delete document.body.dataset.menuOpen;
     };
   }, [menuOpen]);
 
@@ -105,6 +110,7 @@ export function SiteHeader() {
             className="mobile-nav-panel"
             exit={{ opacity: 0, y: -8 }}
             id="mobile-navigation"
+            ref={panelRef}
             initial={reduceMotion ? false : { opacity: 0, y: -12 }}
             role="dialog"
             aria-modal="true"

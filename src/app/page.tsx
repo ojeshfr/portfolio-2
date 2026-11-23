@@ -146,7 +146,7 @@ export default function HomePage() {
             </a>
           </div>
           <p className="home-cta__meta">
-            Based in {profile.location} · C# &amp; TypeScript · Available for engineering &amp; creative development
+            Based in {profile.location} · C# &amp; TypeScript
           </p>
         </div>
       </section>
