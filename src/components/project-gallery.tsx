@@ -249,7 +249,6 @@ export function ProjectGallery({
       >
         {images.map((item, index) => (
           <button
-            aria-label={`Show image ${index + 1}: ${item.caption}`}
             aria-pressed={activeIndex === index}
             className={`case-gallery__choice${activeIndex === index ? " is-selected" : ""}`}
             key={item.src}

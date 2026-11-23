@@ -225,7 +225,7 @@ export function PortalHero({ items }: { items: SceneItem[] }) {
           </div>)}
         </motion.div>}
       </AnimatePresence>
-      <a href="#selected-work" className="spatial-scroll" aria-label="Continue to selected work"><span>Continue below</span> ↓</a>
+      <a href="#selected-work" className="spatial-scroll" aria-label="Continue below to selected work"><span>Continue below</span> ↓</a>
     </section>
   );
 }

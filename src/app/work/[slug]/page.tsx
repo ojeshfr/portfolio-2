@@ -102,7 +102,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
                   href={project.liveUrl}
                   rel="noreferrer"
                   target="_blank"
-                  aria-label={`Visit the ${project.title} project (opens in new tab)`}
+                  aria-label={`Visit the project: ${project.title}`}
                 >
                   Visit the project{" "}
                   <span aria-hidden="true" className="chevron">
@@ -117,7 +117,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
                   href={project.repository.url}
                   rel="noreferrer"
                   target="_blank"
-                  aria-label={`View ${project.title} source on GitHub (opens in new tab)`}
+                  aria-label={`Source repository: ${project.title}`}
                 >
                   Source repository{" "}
                   <span aria-hidden="true" className="chevron">
@@ -223,7 +223,7 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
                 href={project.repository.url}
                 rel="noreferrer"
                 target="_blank"
-                aria-label={`Explore the ${project.title} repository on GitHub (opens in new tab)`}
+                aria-label={`Explore repository: ${project.title}`}
               >
                 Explore repository{" "}
                 <span aria-hidden="true" className="chevron">
@@ -243,7 +243,6 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
             <Link
               className={styles.nextCard}
               href={`/work/${nextProject.slug}`}
-              aria-label={`View next case study: ${nextProject.title}`}
             >
               <div className={styles.nextInfo}>
                 <span className={styles.nextType}>

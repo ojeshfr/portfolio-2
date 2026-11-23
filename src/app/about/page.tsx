@@ -149,7 +149,7 @@ export default function AboutPage() {
                   <Link
                     className="text-link"
                     href={`/work/${project.slug}`}
-                    aria-label={`Read the ${project.title} case study`}
+                    aria-label={`View case study: ${project.title}`}
                   >
                     View case study <span aria-hidden="true" className="chevron">›</span>
                   </Link>
@@ -159,7 +159,7 @@ export default function AboutPage() {
                       href={project.repository.url}
                       rel="noreferrer"
                       target="_blank"
-                      aria-label={`${project.title} source code on GitHub (opens in new tab)`}
+                      aria-label={`GitHub repository: ${project.title}`}
                     >
                       GitHub repository <span aria-hidden="true" className="chevron">↗</span>
                     </a>
@@ -169,7 +169,7 @@ export default function AboutPage() {
                       href={project.liveUrl}
                       rel="noreferrer"
                       target="_blank"
-                      aria-label={`Visit ${project.title} live website (opens in new tab)`}
+                      aria-label={`Visit live site: ${project.title}`}
                     >
                       Visit live site <span aria-hidden="true" className="chevron">↗</span>
                     </a>
@@ -230,7 +230,6 @@ export default function AboutPage() {
                     href={tool.url}
                     rel="noreferrer"
                     target="_blank"
-                    aria-label={`${tool.name} repository on GitHub (opens in new tab)`}
                   >
                     {tool.linkLabel} <span aria-hidden="true" className="chevron">↗</span>
                   </a>
@@ -260,7 +259,6 @@ export default function AboutPage() {
                       href={tool.url}
                       rel="noreferrer"
                       target="_blank"
-                      aria-label={`${tool.name} repository on GitHub (opens in new tab)`}
                     >
                       {tool.linkLabel} <span aria-hidden="true" className="chevron">↗</span>
                     </a>

@@ -13,7 +13,6 @@ export function ProjectCard({
   return (
     <article className={styles.cardWrapper} data-project={project.slug}>
       <Link
-        aria-label={`Open ${project.title} case study`}
         className={styles.card}
         data-scroll-reveal
         href={`/work/${project.slug}`}

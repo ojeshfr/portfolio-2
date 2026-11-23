@@ -19,11 +19,11 @@
 
   /* Typography Colors */
   --text-primary: #1d1d1f;
-  --text-secondary: #6e6e73;
-  --text-tertiary: #86868b;
+  --text-secondary: #515154;
+  --text-tertiary: #6e6e73;
   --text-dark: #f5f5f7;
-  --text-dark-secondary: #86868b;
-  --text-dark-tertiary: #6e6e73;
+  --text-dark-secondary: #a1a1a6;
+  --text-dark-tertiary: #86868b;
 
   /* Hairlines & Borders */
   --hairline: rgba(0, 0, 0, 0.08);
@@ -113,8 +113,8 @@
     --surface-elevated: #2c2c2e;
 
     --text-primary: #f5f5f7;
-    --text-secondary: #86868b;
-    --text-tertiary: #6e6e73;
+    --text-secondary: #a1a1a6;
+    --text-tertiary: #86868b;
 
     --hairline: rgba(255, 255, 255, 0.12);
     --hairline-strong: rgba(255, 255, 255, 0.24);
@@ -649,10 +649,13 @@ main:focus {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0;
 }
 
 .site-footer__col a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
   color: var(--text-dark-secondary);
   transition: color var(--duration-fast) var(--ease-apple);
   text-decoration: none;

@@ -97,7 +97,6 @@ export default function HomePage() {
                 key={tool.name}
                 rel="noreferrer"
                 target="_blank"
-                aria-label={`${tool.name} repository on GitHub (opens in new tab)`}
               >
                 <div>
                   <span className="tool-card__tag">{tool.kind}</span>

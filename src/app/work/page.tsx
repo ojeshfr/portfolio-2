@@ -57,7 +57,6 @@ export default function WorkPage() {
                 key={tool.name}
                 rel="noreferrer"
                 target="_blank"
-                aria-label={`${tool.name} repository on GitHub (opens in new tab)`}
                 data-scroll-reveal
               >
                 <div className={styles.toolCardHeader}>
