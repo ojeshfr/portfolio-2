@@ -27,7 +27,7 @@ export function SiteFooter() {
           <div className="site-footer__col">
             <h2>Windows Tools</h2>
             <ul>
-              {desktopProjects.map((tool) => (
+              {desktopProjects.filter((tool) => Boolean(tool.screenshot)).map((tool) => (
                 <li key={tool.name}>
                   <a href={tool.url} rel="noreferrer" target="_blank">
                     {tool.name} <span aria-hidden="true">↗</span>

@@ -76,9 +76,6 @@ export default async function CaseStudyPage({ params }: CaseStudyProps) {
             <Link className="text-link" href="/work">
               <span aria-hidden="true">‹</span> All Work
             </Link>
-            <span className={styles.heroMetaTag}>
-              {project.type} · {project.year}
-            </span>
           </div>
 
           {/* Hero Header */}

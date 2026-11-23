@@ -19,9 +19,9 @@ export default function WorkPage() {
       <section className="section" aria-labelledby="work-heading">
         <div className="container">
           <header className="section-head" data-scroll-reveal>
-            <span className="eyebrow">Work Archive</span>
+            <span className="eyebrow">Case Studies</span>
             <h1 className="headline" id="work-heading">
-              Crafted in code.
+              Selected work.
             </h1>
             <p className="subhead">
               Four case studies in web interaction, real-time graphics, and offline reliability.
