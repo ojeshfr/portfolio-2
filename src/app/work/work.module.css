@@ -1,0 +1,153 @@
+.pageWork {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  padding-top: var(--header-h);
+}
+
+.caseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.toolCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border-radius: var(--radius-card);
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              box-shadow var(--duration-normal) var(--ease-apple),
+              border-color var(--duration-normal) var(--ease-apple);
+}
+
+.toolCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.toolCard:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.toolCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.toolCardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.toolTag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.toolTitle {
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.toolExternal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--text-tertiary);
+  font-size: 1rem;
+  transition: color var(--duration-fast) var(--ease-apple),
+              background-color var(--duration-fast) var(--ease-apple);
+}
+
+.toolCard:hover .toolExternal {
+  color: var(--accent-link);
+  background-color: var(--surface-tint);
+}
+
+.toolDesc {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0 0 1.25rem;
+}
+
+.toolMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  background-color: var(--surface-tint);
+  border: 1px solid var(--hairline);
+  margin-bottom: 1.25rem;
+}
+
+.toolMedia img {
+  object-fit: cover;
+}
+
+.toolFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.toolTech {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+@media (max-width: 820px) {
+  .caseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolCard,
+  .toolCard:hover,
+  .toolExternal,
+  .toolCard:hover .toolExternal {
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,111 @@
+.cardWrapper {
+  display: flex;
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-radius: var(--radius-card);
+  background-color: var(--surface-card);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              box-shadow var(--duration-normal) var(--ease-apple),
+              border-color var(--duration-normal) var(--ease-apple);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.cardHeader {
+  margin-bottom: 1.5rem;
+}
+
+.cardType {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.cardTitle {
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem;
+}
+
+.cardSummary {
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 42ch;
+}
+
+.cardMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  background-color: var(--surface-tint);
+  border: 1px solid var(--hairline);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  margin-bottom: 1.5rem;
+}
+
+.cardMedia img {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-apple);
+}
+
+.card:hover .cardMedia img {
+  transform: scale(1.025);
+}
+
+.cardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--accent-link);
+  margin-top: auto;
+}
+
+.card:hover .cardCta .chevron {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card:hover,
+  .cardMedia img,
+  .card:hover .cardMedia img,
+  .cardCta .chevron,
+  .card:hover .cardCta .chevron {
+    transform: none !important;
+    transition: none !important;
+  }
+}
